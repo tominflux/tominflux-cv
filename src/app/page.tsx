@@ -1,10 +1,11 @@
+import { CvContainer } from "@/components/CvContainer";
 import { CvHeader } from "../components/CvHeader";
 import { CvList } from "../components/CvList";
 import { CvSection } from "../components/CvSection";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-24">
+    <CvContainer>
       <CvHeader name={"[Full Name]"} />
       <CvSection heading="Employment">
         <CvList
@@ -73,6 +74,6 @@ export default function Home() {
           ]}
         />
       </CvSection>
-    </main>
+    </CvContainer>
   );
 }
