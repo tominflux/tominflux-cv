@@ -9,7 +9,7 @@ export interface CvListProps {
 }
 
 export function CvList({
-  margin = 2,
+  margin = 3,
   heading,
   headingProps = {
     type: "h3",
