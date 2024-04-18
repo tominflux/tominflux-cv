@@ -1,11 +1,11 @@
-import { CvContainer } from "@/components/CvContainer";
+import { CvLayout } from "@/components/CvLayout";
 import { CvSectionHeader } from "../components/CvSection/CvSectionHeader";
-import { CvContentList } from "../components/CvContentList";
+import { CvContentList } from "../components/CvContent/CvContentList";
 import { CvSectionStandard } from "../components/CvSection/CvSectionStandard";
 
 export default function Home() {
   return (
-    <CvContainer>
+    <CvLayout>
       <CvSectionHeader name={"[Full Name]"} />
       <CvSectionStandard heading="Employment">
         <CvContentList
@@ -74,6 +74,6 @@ export default function Home() {
           ]}
         />
       </CvSectionStandard>
-    </CvContainer>
+    </CvLayout>
   );
 }
