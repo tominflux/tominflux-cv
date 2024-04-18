@@ -6,7 +6,7 @@ export interface CvHeaderProps {
 
 export function CvHeader({ name }: CvHeaderProps) {
   return (
-    <div className={`grid grid-cols-2 gap-4 w-full mb-3`}>
+    <div className={`grid grid-cols-2 gap-4 w-full py-3`}>
       <div>
         <h1 className="text-3xl">{name}</h1>
       </div>
