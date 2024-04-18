@@ -1,13 +1,13 @@
 import { CvContainer } from "@/components/CvContainer";
 import { CvHeader } from "../components/CvHeader";
 import { CvList } from "../components/CvList";
-import { CvSection } from "../components/CvSection";
+import { CvSectionStandard } from "../components/CvSection";
 
 export default function Home() {
   return (
     <CvContainer>
       <CvHeader name={"[Full Name]"} />
-      <CvSection heading="Employment">
+      <CvSectionStandard heading="Employment">
         <CvList
           heading="Company A - [Position]"
           items={[
@@ -28,8 +28,8 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
           ]}
         />
-      </CvSection>
-      <CvSection heading="Education">
+      </CvSectionStandard>
+      <CvSectionStandard heading="Education">
         <CvList
           heading="School A - [Course Name]"
           items={[
@@ -40,8 +40,8 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
           ]}
         />
-      </CvSection>
-      <CvSection heading="Projects">
+      </CvSectionStandard>
+      <CvSectionStandard heading="Projects">
         <CvList
           heading="Project A"
           items={[
@@ -62,8 +62,8 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
           ]}
         />
-      </CvSection>
-      <CvSection heading="Technical Skills">
+      </CvSectionStandard>
+      <CvSectionStandard heading="Technical Skills">
         <CvList
           items={[
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
@@ -73,7 +73,7 @@ export default function Home() {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
           ]}
         />
-      </CvSection>
+      </CvSectionStandard>
     </CvContainer>
   );
 }

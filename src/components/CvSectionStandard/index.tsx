@@ -1,11 +1,14 @@
 import { ReactNode } from "react";
 
-export interface CvSectionProps {
+export interface CvSectionStandardProps {
   heading?: ReactNode;
   children: ReactNode;
 }
 
-export function CvSection({ heading, children }: CvSectionProps) {
+export function CvSectionStandard({
+  heading,
+  children,
+}: CvSectionStandardProps) {
   return (
     <div className={`w-full py-3`}>
       {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
