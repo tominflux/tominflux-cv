@@ -1,10 +1,10 @@
 import { CvList } from "../CvList";
 
-export interface CvHeaderProps {
+export interface CvSectionHeaderProps {
   name: string;
 }
 
-export function CvHeader({ name }: CvHeaderProps) {
+export function CvSectionHeader({ name }: CvSectionHeaderProps) {
   return (
     <div className={`grid grid-cols-2 gap-4 w-full py-3`}>
       <div>

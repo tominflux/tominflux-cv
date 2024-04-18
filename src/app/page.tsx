@@ -1,12 +1,12 @@
 import { CvContainer } from "@/components/CvContainer";
-import { CvHeader } from "../components/CvHeader";
+import { CvSectionHeader } from "../components/CvSectionHeader";
 import { CvList } from "../components/CvList";
-import { CvSectionStandard } from "../components/CvSection";
+import { CvSectionStandard } from "../components/CvSectionStandard";
 
 export default function Home() {
   return (
     <CvContainer>
-      <CvHeader name={"[Full Name]"} />
+      <CvSectionHeader name={"[Full Name]"} />
       <CvSectionStandard heading="Employment">
         <CvList
           heading="Company A - [Position]"
