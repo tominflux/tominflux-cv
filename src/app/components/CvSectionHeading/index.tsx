@@ -1,5 +1,6 @@
 import { TextSize } from "@/app/types/TextSize";
 import { ReactNode } from "react";
+import { CvHeading } from "../CvHeading";
 
 export interface CvSectionHeadingProps {
   margin?: number;
@@ -12,5 +13,9 @@ export function CvSectionHeading({
   size = "2xl",
   children,
 }: CvSectionHeadingProps) {
-  return <h2 className={`text-${size} mb-${margin}`}>{children}</h2>;
+  return (
+    <CvHeading type="h2" margin={margin} size={size}>
+      {children}
+    </CvHeading>
+  );
 }
