@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 import { CvHeading, CvHeadingProps } from "../CvHeading";
+import { ListType } from "@/app/types/ListType";
 
 export interface CvListProps {
+  type?: ListType;
   margin?: number;
   heading?: ReactNode;
   headingProps?: Omit<CvHeadingProps, "children">;
@@ -9,6 +11,7 @@ export interface CvListProps {
 }
 
 export function CvList({
+  type = "disc",
   margin = 3,
   heading,
   headingProps = {
@@ -21,7 +24,7 @@ export function CvList({
   return (
     <div className={`mb-${margin}`}>
       {heading ? <CvHeading {...headingProps}>{heading}</CvHeading> : undefined}
-      <ul className="list-disc pl-6">
+      <ul className={`list-${type} pl-6`}>
         {items.map((item) => (
           <li className="pl-1">{item}</li>
         ))}
