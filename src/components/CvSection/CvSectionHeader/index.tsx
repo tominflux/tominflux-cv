@@ -1,4 +1,4 @@
-import { CvList } from "../CvList";
+import { CvList } from "../../CvList";
 
 export interface CvSectionHeaderProps {
   name: string;

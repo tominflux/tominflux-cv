@@ -1,5 +1,5 @@
 import { CvContainer } from "@/components/CvContainer";
-import { CvSectionHeader } from "../components/CvSectionHeader";
+import { CvSectionHeader } from "../components/CvSection/CvSectionHeader";
 import { CvList } from "../components/CvList";
 import { CvSectionStandard } from "../components/CvSectionStandard";
 
