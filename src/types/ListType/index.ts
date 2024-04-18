@@ -1,1 +1,1 @@
-export type ListType = "none" | "disc" | "decimal";
+export type ListType = "list-none" | "list-disc" | "list-decimal";

@@ -1,22 +1,18 @@
-import { CvHeading } from "../CvHeading";
 import { CvList } from "../CvList";
 
 export interface CvHeaderProps {
   name: string;
-  margin?: number;
 }
 
-export function CvHeader({ name, margin = 3 }: CvHeaderProps) {
+export function CvHeader({ name }: CvHeaderProps) {
   return (
-    <div className={`grid grid-cols-2 gap-4 w-full mb-${margin}`}>
+    <div className={`grid grid-cols-2 gap-4 w-full mb-3`}>
       <div>
-        <CvHeading type="h1" size="3xl">
-          {name}
-        </CvHeading>
+        <h1 className="text-3xl">{name}</h1>
       </div>
       <div className="text-right">
         <CvList
-          type="none"
+          type="list-none"
           items={["[Email Address]", "[Phone Number]", "[Home Address]"]}
         />
       </div>

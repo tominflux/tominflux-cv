@@ -1,29 +1,15 @@
 import { ReactNode } from "react";
-import { CvHeading, CvHeadingProps } from "../CvHeading";
 
 export interface CvSectionProps {
-  margin?: number;
   heading?: ReactNode;
-  headingProps?: Omit<CvHeadingProps, "children">;
-  padding?: number;
   children: ReactNode;
 }
 
-export function CvSection({
-  margin = 2,
-  heading,
-  headingProps = {
-    type: "h2",
-    size: "2xl",
-    margin: 2,
-  },
-  padding = 3,
-  children,
-}: CvSectionProps) {
+export function CvSection({ heading, children }: CvSectionProps) {
   return (
-    <div className={`w-full mb-${margin}`}>
-      {heading ? <CvHeading {...headingProps}>{heading}</CvHeading> : undefined}
-      <div className={`px-${padding}`}>{children}</div>
+    <div className={`w-full mb-3`}>
+      {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
+      <div className={`px-3`}>{children}</div>
     </div>
   );
 }
