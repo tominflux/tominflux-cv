@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { CvHeading, CvHeadingProps } from "../CvHeading";
-import { ListType } from "@/app/types/ListType";
+import { ListType } from "@/types/ListType";
 
 export interface CvListProps {
   type?: ListType;

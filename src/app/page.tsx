@@ -1,6 +1,6 @@
-import { CvHeader } from "./components/CvHeader";
-import { CvList } from "./components/CvList";
-import { CvSection } from "./components/CvSection";
+import { CvHeader } from "../components/CvHeader";
+import { CvList } from "../components/CvList";
+import { CvSection } from "../components/CvSection";
 
 export default function Home() {
   return (

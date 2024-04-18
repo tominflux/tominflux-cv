@@ -1,5 +1,5 @@
-import { HeadingType } from "@/app/types/HeadingType";
-import { TextSize } from "@/app/types/TextSize";
+import { HeadingType } from "@/types/HeadingType";
+import { TextSize } from "@/types/TextSize";
 import React from "react";
 import { ReactNode } from "react";
 
