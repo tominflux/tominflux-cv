@@ -1,6 +1,9 @@
 import { CvDocument } from "@/types/CvDocument";
 
 export const starterCvDocument: CvDocument = {
+  metadata: {
+    name: "untitled-document",
+  },
   sections: [
     {
       type: "header",
