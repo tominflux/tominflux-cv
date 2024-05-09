@@ -1,5 +1,6 @@
 import { starterCvDocument } from "@/constants/cv";
 import { CvFactory } from "@/factories/cvFactory";
+import { randomUUID } from "crypto";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -15,7 +16,53 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const createResult = await CvFactory.create(starterCvDocument);
+  const { metadata, sections } = starterCvDocument;
+
+  const newCvDocument = {
+    metadata,
+    sections: sections.map((section) => {
+      const id = randomUUID();
+      switch (section.type) {
+        case "header": {
+          return {
+            ...section,
+            id,
+          };
+        }
+        case "standard": {
+          const content = section.content.map((content) => {
+            const contentId = randomUUID();
+            switch (content.type) {
+              case "list": {
+                const items = content.items.map((item) => ({
+                  ...item,
+                  id: randomUUID(),
+                }));
+                return {
+                  ...content,
+                  id: contentId,
+                  items,
+                };
+              }
+              default: {
+                return {
+                  ...content,
+                  id: contentId,
+                };
+              }
+            }
+          });
+          return {
+            ...section,
+            content,
+            id,
+          };
+        }
+      }
+    }),
+  };
+
+  const createResult = await CvFactory.create(newCvDocument);
 
   return Response.json(
     {

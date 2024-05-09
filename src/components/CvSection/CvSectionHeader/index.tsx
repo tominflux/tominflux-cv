@@ -46,7 +46,14 @@ export function CvSectionHeader({
           <h1 className="text-3xl">{name}</h1>
         </div>
         <div className="text-right">
-          <CvContentList listType="list-none" items={[email, phone, address]} />
+          <CvContentList
+            listType="list-none"
+            items={[
+              { id: "email", value: email },
+              { id: "phone", value: phone },
+              { id: "address", value: address },
+            ]}
+          />
         </div>
       </Overlay>
       <CvSectionHeaderEditModal

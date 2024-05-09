@@ -17,7 +17,7 @@ export function CvSectionStandardContainer({
   return (
     <CvSectionStandard heading={heading}>
       {content.map((contentProps) => (
-        <CvContentContainer {...contentProps} />
+        <CvContentContainer key={contentProps.id} {...contentProps} />
       ))}
     </CvSectionStandard>
   );

@@ -1,20 +1,16 @@
 import { getMongoCollection } from "@/lib/mongodb";
 import { CvDocument } from "@/types/CvDocument";
-import {
-  FactoryDocument,
-  FactoryDocumentFilter,
-  MongoDocument,
-} from "@/types/Factory/FactoryDocument";
+import { MongoDocument } from "@/types/Factory/FactoryDocument";
 import { ObjectId } from "mongodb";
 
-async function cvFactoryCreate(data: CvDocument) {
+async function cvFactoryCreate(data: Omit<CvDocument, "id">) {
   const cvCollection = await getMongoCollection("cv");
 
   const insertResult = await cvCollection.insertOne({ ...data });
   const objectId = insertResult.insertedId;
   const id = objectId.toString();
 
-  const cvDocument: FactoryDocument<CvDocument> = {
+  const cvDocument: CvDocument = {
     id,
     ...data,
   };
@@ -25,7 +21,7 @@ async function cvFactoryCreate(data: CvDocument) {
   };
 }
 
-async function cvFactoryRead(query: FactoryDocumentFilter<CvDocument>) {
+async function cvFactoryRead(query: Partial<CvDocument>) {
   const cvCollection = await getMongoCollection("cv");
 
   const { id, ...remainingQuery } = query;
@@ -49,11 +45,8 @@ async function cvFactoryRead(query: FactoryDocumentFilter<CvDocument>) {
 }
 
 async function cvFactoryUpdate(
-  data: FactoryDocument<CvDocument>
-): Promise<
-  | { status: "success"; data: FactoryDocument<CvDocument> }
-  | { status: "not-found" }
-> {
+  data: CvDocument
+): Promise<{ status: "success"; data: CvDocument } | { status: "not-found" }> {
   const cvCollection = await getMongoCollection("cv");
 
   const { id, ...documentData } = data;

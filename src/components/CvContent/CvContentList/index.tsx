@@ -4,7 +4,10 @@ import { ReactNode } from "react";
 export interface CvContentListProps {
   listType?: ListType;
   heading?: ReactNode;
-  items: ReactNode[];
+  items: {
+    id: string;
+    value: ReactNode;
+  }[];
 }
 
 export function CvContentList({
@@ -17,7 +20,9 @@ export function CvContentList({
       {heading ? <h3 className="text-xl mb-1">{heading}</h3> : undefined}
       <ul className={`${listType} pl-6`}>
         {items.map((item) => (
-          <li className="pl-1">{item}</li>
+          <li key={item.id} className="pl-1">
+            {item.value}
+          </li>
         ))}
       </ul>
     </div>
