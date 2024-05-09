@@ -1,6 +1,7 @@
 "use client";
 
 import { CvSectionHeader } from "@/components/CvSection/CvSectionHeader";
+import { CvSectionHeaderEditData } from "@/components/CvSection/CvSectionHeader/CvSectionHeaderEditModal";
 import { useCvStore } from "@/state";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 
@@ -15,8 +16,13 @@ export function CvSectionHeaderContainer({
 }: CvSectionHeaderContainerProps) {
   const { updateSection } = useCvStore();
 
-  const onUpdate = (data: CvDocumentSectionHeader) => {
-    updateSection(data);
+  const onUpdate = (data: CvSectionHeaderEditData) => {
+    const section: CvDocumentSectionHeader = {
+      ...data,
+      id,
+      type: "header",
+    };
+    updateSection(section);
   };
 
   return (

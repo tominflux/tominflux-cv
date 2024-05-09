@@ -1,15 +1,23 @@
 "use client";
 
+import { Button } from "@/components/UI/Button";
 import { Dialog } from "@/components/UI/Dialog";
 import { Modal } from "@/components/UI/Modal";
 import { TextInput } from "@/components/UI/TextInput";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 import { useState } from "react";
 
+export interface CvSectionHeaderEditData {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export interface CvSectionHeaderEditModalProps {
   isOpen?: boolean;
-  onConfirm?: (data: CvDocumentSectionHeader) => void;
-  data: CvDocumentSectionHeader;
+  onConfirm?: (data: CvSectionHeaderEditData) => void;
+  data: CvSectionHeaderEditData;
 }
 
 export function CvSectionHeaderEditModal({
@@ -24,9 +32,7 @@ export function CvSectionHeaderEditModal({
     undefined
   );
 
-  const editedData: CvDocumentSectionHeader = {
-    type: "header",
-    id: data.id,
+  const editedData: CvSectionHeaderEditData = {
     name: editedName ?? data.name,
     email: editedEmail ?? data.email,
     phone: editedPhone ?? data.phone,
@@ -66,8 +72,8 @@ export function CvSectionHeaderEditModal({
           />
         </div>
         <div className="flex flex-col justify-end gap-3 sm:flex-row py-2">
-          <button
-            className="px-6 py-2 rounded-sm shadow-sm dark:bg-violet-600 dark:text-gray-50"
+          <Button
+            className="px-6 py-2"
             onClick={onConfirm ? () => onConfirm(editedData) : undefined}
           >
             <svg
@@ -84,7 +90,7 @@ export function CvSectionHeaderEditModal({
                 d="m4.5 12.75 6 6 9-13.5"
               />
             </svg>
-          </button>
+          </Button>
         </div>
       </Dialog>
     </Modal>

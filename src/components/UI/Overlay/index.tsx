@@ -13,7 +13,7 @@ export function Overlay({ className, children, overlay }: OverlayProps) {
     <div className={clsx("relative", className)}>
       {children}
       {layers.map((layer) => (
-        <div className="absolute w-full h-full">{layer}</div>
+        <div className="absolute w-full h-full left-0 top-0">{layer}</div>
       ))}
     </div>
   );

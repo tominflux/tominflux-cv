@@ -2,10 +2,12 @@
 
 import { Button } from "@/components/UI/Button";
 import { Overlay } from "@/components/UI/Overlay";
-import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 import { useState } from "react";
 import { CvContentList } from "../../CvContent/CvContentList";
-import { CvSectionHeaderEditModal } from "./CvSectionHeaderEditModal";
+import {
+  CvSectionHeaderEditData,
+  CvSectionHeaderEditModal,
+} from "./CvSectionHeaderEditModal";
 
 export interface CvSectionHeaderProps {
   id: string;
@@ -13,7 +15,7 @@ export interface CvSectionHeaderProps {
   email: string;
   phone: string;
   address: string;
-  onUpdate?: (data: CvDocumentSectionHeader) => void;
+  onUpdate?: (data: CvSectionHeaderEditData) => void;
 }
 
 export function CvSectionHeader({
@@ -58,7 +60,7 @@ export function CvSectionHeader({
       </Overlay>
       <CvSectionHeaderEditModal
         isOpen={isEditModalOpen}
-        data={{ type: "header", id, name, email, phone, address }}
+        data={{ name, email, phone, address }}
         onConfirm={(data) => {
           setEditModalOpen(false);
           if (onUpdate) {
