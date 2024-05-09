@@ -77,8 +77,8 @@ export async function PUT(
   const cvFactoryDocumentData = documentParseResult.data;
 
   const cvFactoryUpdateDocument = {
-    id,
     ...cvFactoryDocumentData,
+    id,
   };
 
   const updateResult = await CvFactory.update(cvFactoryUpdateDocument);

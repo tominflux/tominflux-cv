@@ -7,30 +7,18 @@ import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { useCvStore } from "@/state";
 import { CvDocument } from "@/types/CvDocument";
+import { useCvFetcher } from "@/hooks/useCvFetcher";
+import { useCvUpdater } from "@/hooks/useCvUpdater";
 
 export interface CvContainerProps {}
 
-const fetcher = (input: string | URL | Request, init?: RequestInit) =>
-  fetch(input, init).then((res) => res.json());
-
 export function CvContainer({}: CvContainerProps) {
-  const { id } = useParams();
+  const { cv } = useCvStore();
 
-  const { data, error, isLoading } = useSWR<{
-    payload: CvDocument;
-    message: string;
-  }>(`/api/cv/${id}`, fetcher);
-  const fetchedCv = data?.payload;
+  useCvFetcher();
+  useCvUpdater();
 
-  const { cv, loadCv } = useCvStore();
-
-  const [didLoadCv, setDidLoadCv] = useState<boolean>(false);
-  useEffect(() => {
-    if (didLoadCv) return;
-    if (!fetchedCv) return;
-    setDidLoadCv(true);
-    loadCv(fetchedCv);
-  }, [didLoadCv, fetchedCv, loadCv]);
+  console.log("DEBUG", cv);
 
   return (
     <CvLayout>

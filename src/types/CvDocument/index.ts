@@ -3,6 +3,7 @@ import { cvDocumentSectionSchema } from "./CvDocumentSection";
 import { cvDocumentMetaDataSchema } from "./CvDocumentMetaData";
 
 export const cvDocumentSchema = z.object({
+  id: z.string(),
   metadata: cvDocumentMetaDataSchema,
   sections: z.array(cvDocumentSectionSchema),
 });

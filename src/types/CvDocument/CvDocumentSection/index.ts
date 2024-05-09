@@ -3,8 +3,8 @@ import { cvDocumentContentSchema } from "../CvDocumentContent";
 
 // Header
 export const cvDocumentSectionHeaderSchema = z.object({
-  type: z.literal("header"),
   id: z.string(),
+  type: z.literal("header"),
   name: z.string(),
   email: z.string(),
   phone: z.string(),
@@ -16,8 +16,8 @@ export type CvDocumentSectionHeader = z.infer<CvDocumentSectionHeaderSchema>;
 
 // Standard
 export const cvDocumentSectionStandardSchema = z.object({
-  type: z.literal("standard"),
   id: z.string(),
+  type: z.literal("standard"),
   heading: z.string(),
   content: z.array(cvDocumentContentSchema),
 });
