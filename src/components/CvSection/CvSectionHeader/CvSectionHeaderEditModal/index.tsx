@@ -18,18 +18,23 @@ export function CvSectionHeaderEditModal({
   data,
 }: CvSectionHeaderEditModalProps) {
   const [editedName, setEditedName] = useState<string | undefined>(undefined);
+  const [editedEmail, setEditedEmail] = useState<string | undefined>(undefined);
+  const [editedPhone, setEditedPhone] = useState<string | undefined>(undefined);
+  const [editedAddress, setEditedAddress] = useState<string | undefined>(
+    undefined
+  );
 
   const editedData: CvDocumentSectionHeader = {
     type: "header",
     id: data.id,
     name: editedName ?? data.name,
+    email: editedEmail ?? data.email,
+    phone: editedPhone ?? data.phone,
+    address: editedAddress ?? data.address,
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      // onClose={onConfirm ? () => onConfirm(editedData) : undefined}
-    >
+    <Modal isOpen={isOpen}>
       <Dialog className="divide-y divide-solid divide-black">
         <div className="py-2">
           <h2 className="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
@@ -44,9 +49,21 @@ export function CvSectionHeaderEditModal({
           />
         </div>
         <div className="flex flex-col gap-2 py-2 text-left">
-          <TextInput label="Email" />
-          <TextInput label="Phone" />
-          <TextInput label="Address" />
+          <TextInput
+            label="Email"
+            value={editedEmail ?? data.email}
+            onValueChange={(value) => setEditedEmail(value)}
+          />
+          <TextInput
+            label="Phone"
+            value={editedPhone ?? data.phone}
+            onValueChange={(value) => setEditedPhone(value)}
+          />
+          <TextInput
+            label="Address"
+            value={editedAddress ?? data.address}
+            onValueChange={(value) => setEditedAddress(value)}
+          />
         </div>
         <div className="flex flex-col justify-end gap-3 sm:flex-row py-2">
           <button

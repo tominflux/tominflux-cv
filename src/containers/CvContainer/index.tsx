@@ -1,10 +1,7 @@
 "use client";
 
 import { CvLayout } from "@/components/CvLayout";
-import {
-  CvSectionContainer,
-  CvSectionContainerProps,
-} from "../CvSectionContainer";
+import { CvSectionContainer } from "../CvSectionContainer";
 import { useParams } from "next/navigation";
 import useSWR from "swr";
 import { useEffect, useState } from "react";

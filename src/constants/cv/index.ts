@@ -6,10 +6,15 @@ export const starterCvDocument: CvDocument = {
   },
   sections: [
     {
+      id: "a",
       type: "header",
       name: "Lorem Ipsum",
+      email: "lorem@ipsum.com",
+      phone: "123456789",
+      address: "1 Lorem Street, Ipsum",
     },
     {
+      id: "b",
       type: "standard",
       heading: "Employment",
       content: [

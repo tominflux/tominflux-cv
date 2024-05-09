@@ -9,6 +9,9 @@ export type CvSectionHeaderContainerProps = CvDocumentSectionHeader;
 export function CvSectionHeaderContainer({
   id,
   name,
+  email,
+  phone,
+  address,
 }: CvSectionHeaderContainerProps) {
   const { updateSection } = useCvStore();
 
@@ -16,5 +19,14 @@ export function CvSectionHeaderContainer({
     updateSection(data);
   };
 
-  return <CvSectionHeader id={id} name={name} onUpdate={onUpdate} />;
+  return (
+    <CvSectionHeader
+      id={id}
+      name={name}
+      email={email}
+      phone={phone}
+      address={address}
+      onUpdate={onUpdate}
+    />
+  );
 }

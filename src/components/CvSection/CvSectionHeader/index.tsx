@@ -10,10 +10,20 @@ import { CvSectionHeaderEditModal } from "./CvSectionHeaderEditModal";
 export interface CvSectionHeaderProps {
   id: string;
   name: string;
+  email: string;
+  phone: string;
+  address: string;
   onUpdate?: (data: CvDocumentSectionHeader) => void;
 }
 
-export function CvSectionHeader({ id, name, onUpdate }: CvSectionHeaderProps) {
+export function CvSectionHeader({
+  id,
+  name,
+  email,
+  phone,
+  address,
+  onUpdate,
+}: CvSectionHeaderProps) {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   const onEditButtonClick = () => {
@@ -36,15 +46,12 @@ export function CvSectionHeader({ id, name, onUpdate }: CvSectionHeaderProps) {
           <h1 className="text-3xl">{name}</h1>
         </div>
         <div className="text-right">
-          <CvContentList
-            listType="list-none"
-            items={["[Email Address]", "[Phone Number]", "[Home Address]"]}
-          />
+          <CvContentList listType="list-none" items={[email, phone, address]} />
         </div>
       </Overlay>
       <CvSectionHeaderEditModal
         isOpen={isEditModalOpen}
-        data={{ type: "header", id, name }}
+        data={{ type: "header", id, name, email, phone, address }}
         onConfirm={(data) => {
           setEditModalOpen(false);
           if (onUpdate) {
