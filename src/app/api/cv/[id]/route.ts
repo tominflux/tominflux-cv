@@ -25,8 +25,19 @@ export async function GET(
 
   const readResult = await CvFactory.read({ id });
 
+  const payload = readResult.data.at(0);
+  if (!payload) {
+    return Response.json(
+      {
+        payload,
+        message: "Not found",
+      },
+      { status: 404 }
+    );
+  }
+
   return Response.json({
-    payload: readResult.data,
+    payload,
     message: `Found [${readResult.data.length}] CV Documents`,
   });
 }
