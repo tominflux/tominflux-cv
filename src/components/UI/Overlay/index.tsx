@@ -2,19 +2,38 @@ import clsx from "clsx";
 import { ReactNode } from "react";
 
 export interface OverlayProps {
-  className: string;
+  className?: string;
   children: ReactNode;
   overlay: ReactNode | ReactNode[];
+  renderOverlay?: boolean;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
-export function Overlay({ className, children, overlay }: OverlayProps) {
+export function Overlay({
+  className,
+  children,
+  overlay,
+  renderOverlay = true,
+  onMouseEnter,
+  onMouseLeave,
+}: OverlayProps) {
   const layers = Array.isArray(overlay) ? overlay : [overlay];
+
   return (
-    <div className={clsx("relative", className)}>
+    <div
+      className={clsx("relative", className)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
-      {layers.map((layer) => (
-        <div className="absolute w-full h-full left-0 top-0">{layer}</div>
-      ))}
+      {renderOverlay
+        ? layers.map((layer) => (
+            <div className="absolute w-full h-full left-0 top-0 pointer-events-none">
+              {layer}
+            </div>
+          ))
+        : undefined}
     </div>
   );
 }

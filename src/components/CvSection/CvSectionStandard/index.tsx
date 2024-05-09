@@ -1,11 +1,13 @@
 import { Button } from "@/components/UI/Button";
 import { Overlay } from "@/components/UI/Overlay";
 import { ReactNode, useState } from "react";
-import {
-  CvSectionStandardEditData,
-  CvSectionStandardEditModal,
-} from "./CvSectionStandardEditModal";
+import { CvSectionStandardEditModal } from "./CvSectionStandardEditModal";
+import { EditDialogOverlay } from "@/components/UI/EditDialogOverlay";
+import { TextInput } from "@/components/UI/TextInput";
 
+export interface CvSectionStandardEditData {
+  heading: string;
+}
 export interface CvSectionStandardProps {
   heading: string;
   children: ReactNode;
@@ -17,37 +19,30 @@ export function CvSectionStandard({
   children,
   onUpdate,
 }: CvSectionStandardProps) {
-  const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [editedHeading, setEditedHeading] = useState<string | undefined>(
+    undefined
+  );
 
-  const onEditButtonClick = () => {
-    setEditModalOpen(true);
+  const editedData: CvSectionStandardEditData = {
+    heading: editedHeading ?? heading,
   };
 
   return (
-    <>
-      <Overlay
-        className={`w-full py-3`}
-        overlay={
-          <div className="flex flex-col justify-center items-center h-full">
-            <Button className="width-max" onClick={onEditButtonClick}>
-              Edit
-            </Button>
-          </div>
-        }
-      >
-        {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
-        <div className={`px-3`}>{children}</div>
-      </Overlay>
-      <CvSectionStandardEditModal
-        isOpen={isEditModalOpen}
-        data={{ heading }}
-        onConfirm={(data) => {
-          setEditModalOpen(false);
-          if (onUpdate) {
-            onUpdate(data);
-          }
-        }}
-      />
-    </>
+    <EditDialogOverlay
+      className={`w-full py-3`}
+      dialogContent={
+        <div className="flex flex-col gap-2 py-2 text-left">
+          <TextInput
+            label="Title"
+            value={editedHeading ?? heading}
+            onValueChange={(value) => setEditedHeading(value)}
+          />
+        </div>
+      }
+      onDialogConfirm={onUpdate ? () => onUpdate(editedData) : undefined}
+    >
+      {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
+      <div className={`px-3`}>{children}</div>
+    </EditDialogOverlay>
   );
 }
