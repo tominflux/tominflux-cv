@@ -6,13 +6,9 @@ import {
   CvContentContainer,
   CvContentContainerProps,
 } from "@/containers/CvContentContainer";
+import { CvDocumentSectionStandard } from "@/types/CvDocument/CvDocumentSection";
 
-export type CvSectionStandardContainerProps = Omit<
-  CvSectionStandardProps,
-  "children"
-> & {
-  content: CvContentContainerProps[];
-};
+export type CvSectionStandardContainerProps = CvDocumentSectionStandard;
 
 export function CvSectionStandardContainer({
   heading,

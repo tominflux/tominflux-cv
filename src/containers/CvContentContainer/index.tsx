@@ -1,9 +1,7 @@
-import {
-  CvContentList,
-  CvContentListProps,
-} from "@/components/CvContent/CvContentList";
+import { CvContentList } from "@/components/CvContent/CvContentList";
+import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
 
-export type CvContentContainerProps = { type: "list" } & CvContentListProps;
+export type CvContentContainerProps = CvDocumentContent;
 
 export function CvContentContainer(props: CvContentContainerProps) {
   switch (props.type) {

@@ -8,11 +8,12 @@ import { CvContentList } from "../../CvContent/CvContentList";
 import { CvSectionHeaderEditModal } from "./CvSectionHeaderEditModal";
 
 export interface CvSectionHeaderProps {
+  id: string;
   name: string;
   onUpdate?: (data: CvDocumentSectionHeader) => void;
 }
 
-export function CvSectionHeader({ name, onUpdate }: CvSectionHeaderProps) {
+export function CvSectionHeader({ id, name, onUpdate }: CvSectionHeaderProps) {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
 
   const onEditButtonClick = () => {
@@ -43,7 +44,7 @@ export function CvSectionHeader({ name, onUpdate }: CvSectionHeaderProps) {
       </Overlay>
       <CvSectionHeaderEditModal
         isOpen={isEditModalOpen}
-        data={{ name }}
+        data={{ type: "header", id, name }}
         onConfirm={(data) => {
           setEditModalOpen(false);
           if (onUpdate) {

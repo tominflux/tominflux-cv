@@ -20,6 +20,8 @@ export function CvSectionHeaderEditModal({
   const [editedName, setEditedName] = useState<string | undefined>(undefined);
 
   const editedData: CvDocumentSectionHeader = {
+    type: "header",
+    id: data.id,
     name: editedName ?? data.name,
   };
 

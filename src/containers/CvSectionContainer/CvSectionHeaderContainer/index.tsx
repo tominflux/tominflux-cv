@@ -1,19 +1,20 @@
 "use client";
 
-import {
-  CvSectionHeader,
-  CvSectionHeaderProps,
-} from "@/components/CvSection/CvSectionHeader";
+import { CvSectionHeader } from "@/components/CvSection/CvSectionHeader";
+import { useCvStore } from "@/state";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 
-export type CvSectionHeaderContainerProps = CvSectionHeaderProps;
+export type CvSectionHeaderContainerProps = CvDocumentSectionHeader;
 
 export function CvSectionHeaderContainer({
+  id,
   name,
 }: CvSectionHeaderContainerProps) {
+  const { updateSection } = useCvStore();
+
   const onUpdate = (data: CvDocumentSectionHeader) => {
-    console.log("DEBUG", data);
+    updateSection(data);
   };
 
-  return <CvSectionHeader name={name} onUpdate={onUpdate} />;
+  return <CvSectionHeader id={id} name={name} onUpdate={onUpdate} />;
 }

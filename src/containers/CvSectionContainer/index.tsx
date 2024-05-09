@@ -8,18 +8,16 @@ import {
 } from "./CvSectionStandardContainer";
 
 export type CvSectionContainerProps =
-  | ({ type: "header" } & CvSectionHeaderContainerProps)
-  | ({ type: "standard" } & CvSectionStandardContainerProps);
+  | CvSectionHeaderContainerProps
+  | CvSectionStandardContainerProps;
 
 export function CvSectionContainer(props: CvSectionContainerProps) {
   switch (props.type) {
     case "header": {
-      const { type, ...sectionProps } = props;
-      return <CvSectionHeaderContainer {...sectionProps} />;
+      return <CvSectionHeaderContainer {...props} />;
     }
     case "standard": {
-      const { type, ...sectionProps } = props;
-      return <CvSectionStandardContainer {...sectionProps} />;
+      return <CvSectionStandardContainer {...props} />;
     }
     default:
       return <></>;
