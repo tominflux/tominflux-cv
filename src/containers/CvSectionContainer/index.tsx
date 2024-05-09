@@ -1,7 +1,7 @@
 import {
   CvSectionHeaderContainer,
   CvSectionHeaderContainerProps,
-} from "./CvSectionHeadingContainer";
+} from "./CvSectionHeaderContainer";
 import {
   CvSectionStandardContainer,
   CvSectionStandardContainerProps,
