@@ -22,7 +22,7 @@ export function CvSectionStandardContainer({
   heading,
   content,
 }: CvSectionStandardContainerProps) {
-  const { cv, updateSection } = useCvStore();
+  const { updateSection } = useCvStore();
 
   const [editData, setEditData] = useState<CvSectionStandardEditData>({
     heading,

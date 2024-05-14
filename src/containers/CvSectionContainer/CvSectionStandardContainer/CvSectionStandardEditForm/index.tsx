@@ -180,59 +180,5 @@ export function CvSectionStandardEditFormContainer({
         })
       )}
     />
-    // <>
-    //   <div className="flex flex-col gap-2 py-2 text-left">
-    //     <TextInput
-    //       label="Title"
-    //       value={editData?.heading ?? heading ?? ""}
-    //       onValueChange={(value) =>
-    //         onEdit({
-    //           heading: value,
-    //         })
-    //       }
-    //     />
-    //   </div>
-    //   <div className="flex flex-col gap-2 py-2 text-left">
-    //     <label htmlFor="url" className="block text-sm font-medium">
-    //       Content
-    //     </label>
-    //     {(editData?.content ?? content ?? []).map((contentProps) => (
-    //       <Capsule
-    //         key={contentProps.id}
-    //         ref={(el) => {
-    //           capsuleRefs.current = [
-    //             ...capsuleRefs.current.filter(
-    //               (capsuleRef) => capsuleRef.id !== contentProps.id
-    //             ),
-    //             {
-    //               id: contentProps.id,
-    //               element: el,
-    //             },
-    //           ];
-    //         }}
-    //         className={
-    //           replacedCapsule === contentProps.id ? "opacity-15" : undefined
-    //         }
-    //         onMouseDown={() => {
-    //           setSelectedCapsule(contentProps.id);
-    //         }}
-    //       >
-    //         <div className="flex flex-row gap-4 items-center justify-between">
-    //           <div className="text-left">
-    //             {contentProps.type} - {contentProps.id.slice(0, 12)}...
-    //           </div>
-    //           <div className="flex flex-row gap-2 justify-end">
-    //             <ButtonLight>
-    //               <EditIcon />
-    //             </ButtonLight>
-    //             <ButtonLight>
-    //               <DeleteIcon />
-    //             </ButtonLight>
-    //           </div>
-    //         </div>
-    //       </Capsule>
-    //     ))}
-    //   </div>
-    // </>
   );
 }
