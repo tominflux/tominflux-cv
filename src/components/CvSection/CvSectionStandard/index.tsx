@@ -1,9 +1,6 @@
-import { Button } from "@/components/UI/Button";
-import { Overlay } from "@/components/UI/Overlay";
-import { ReactNode, useState } from "react";
-import { CvSectionStandardEditModal } from "./CvSectionStandardEditModal";
 import { EditDialogOverlay } from "@/components/UI/EditDialogOverlay";
 import { TextInput } from "@/components/UI/TextInput";
+import { ReactNode, useState } from "react";
 
 export interface CvSectionStandardEditData {
   heading: string;
@@ -11,12 +8,14 @@ export interface CvSectionStandardEditData {
 export interface CvSectionStandardProps {
   heading: string;
   children: ReactNode;
+  editContentForm: ReactNode;
   onUpdate?: (data: CvSectionStandardEditData) => void;
 }
 
 export function CvSectionStandard({
   heading,
   children,
+  editContentForm,
   onUpdate,
 }: CvSectionStandardProps) {
   const [editedHeading, setEditedHeading] = useState<string | undefined>(
@@ -31,13 +30,18 @@ export function CvSectionStandard({
     <EditDialogOverlay
       className={`w-full py-3`}
       dialogContent={
-        <div className="flex flex-col gap-2 py-2 text-left">
-          <TextInput
-            label="Title"
-            value={editedHeading ?? heading}
-            onValueChange={(value) => setEditedHeading(value)}
-          />
-        </div>
+        <>
+          <div className="flex flex-col gap-2 py-2 text-left">
+            <TextInput
+              label="Title"
+              value={editedHeading ?? heading}
+              onValueChange={(value) => setEditedHeading(value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2 py-2 text-left">
+            {editContentForm}
+          </div>
+        </>
       }
       onDialogConfirm={onUpdate ? () => onUpdate(editedData) : undefined}
     >

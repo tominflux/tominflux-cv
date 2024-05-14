@@ -28,8 +28,11 @@ export function Overlay({
     >
       {children}
       {renderOverlay
-        ? layers.map((layer) => (
-            <div className="absolute w-full h-full left-0 top-0 pointer-events-none">
+        ? layers.map((layer, index) => (
+            <div
+              key={index}
+              className="absolute w-full h-full left-0 top-0 pointer-events-none"
+            >
               {layer}
             </div>
           ))

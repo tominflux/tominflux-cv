@@ -1,7 +1,9 @@
 "use client";
 
-import { CvSectionHeader } from "@/components/CvSection/CvSectionHeader";
-import { CvSectionHeaderEditData } from "@/components/CvSection/CvSectionHeader/CvSectionHeaderEditModal";
+import {
+  CvSectionHeader,
+  CvSectionHeaderEditData,
+} from "@/components/CvSection/CvSectionHeader";
 import { useCvStore } from "@/state";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 

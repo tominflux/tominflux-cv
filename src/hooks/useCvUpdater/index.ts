@@ -15,5 +15,5 @@ export function useCvUpdater() {
       },
       body: JSON.stringify(cv),
     });
-  }, [cv]);
+  }, [cv, id]);
 }
