@@ -129,7 +129,7 @@ export function CvSectionStandardContainer({
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
     };
-  }, [mouseDownPosition, selectedCapsule]);
+  }, [mouseDownPosition, selectedCapsule, swapContent]);
 
   useEffect(() => {
     const onMouseUp = () => {
