@@ -3,7 +3,7 @@ import { CvContentContainer } from "@/containers/CvContentContainer";
 import { useCvStore } from "@/state";
 import { CvDocumentSectionStandard } from "@/types/CvDocument/CvDocumentSection";
 import { useState } from "react";
-import { CvSectionStandardEditForm } from "./CvSectionStandardEditForm";
+import { CvSectionStandardEditFormContainer } from "./CvSectionStandardEditForm";
 
 export interface CapsuleRef {
   id: string;
@@ -43,7 +43,7 @@ export function CvSectionStandardContainer({
       heading={heading}
       onUpdate={onUpdate}
       editForm={
-        <CvSectionStandardEditForm
+        <CvSectionStandardEditFormContainer
           id={id}
           editData={editData}
           onEdit={(newEditData) => {

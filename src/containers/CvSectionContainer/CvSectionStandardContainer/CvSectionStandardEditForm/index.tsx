@@ -6,18 +6,20 @@ import { TextInput } from "@/components/UI/TextInput";
 import { useCvStore } from "@/state";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CapsuleRef, CvSectionStandardEditData } from "..";
+import { CvSectionStandardEditForm } from "@/components/CvSection/CvSectionStandard/CvSectionStandardEditForm";
+import { ListIcon } from "@/components/UI/Icons/ListIcon";
 
-export interface CvSectionStandardEditFormProps {
+export interface CvSectionStandardEditFormContainerProps {
   id: string;
   editData: CvSectionStandardEditData;
   onEdit: (data: Partial<CvSectionStandardEditData>) => void;
 }
 
-export function CvSectionStandardEditForm({
+export function CvSectionStandardEditFormContainer({
   id,
   editData,
   onEdit,
-}: CvSectionStandardEditFormProps) {
+}: CvSectionStandardEditFormContainerProps) {
   const { cv } = useCvStore();
 
   const section = useMemo(() => {
@@ -148,59 +150,89 @@ export function CvSectionStandardEditForm({
   }, [selectedCapsule]);
 
   return (
-    <>
-      <div className="flex flex-col gap-2 py-2 text-left">
-        <TextInput
-          label="Title"
-          value={editData?.heading ?? heading ?? ""}
-          onValueChange={(value) =>
-            onEdit({
-              heading: value,
-            })
-          }
-        />
-      </div>
-      <div className="flex flex-col gap-2 py-2 text-left">
-        <label htmlFor="url" className="block text-sm font-medium">
-          Content
-        </label>
-        {(editData?.content ?? content ?? []).map((contentProps) => (
-          <Capsule
-            key={contentProps.id}
-            ref={(el) => {
-              capsuleRefs.current = [
-                ...capsuleRefs.current.filter(
-                  (capsuleRef) => capsuleRef.id !== contentProps.id
-                ),
-                {
-                  id: contentProps.id,
-                  element: el,
-                },
-              ];
-            }}
-            className={
-              replacedCapsule === contentProps.id ? "opacity-15" : undefined
-            }
-            onMouseDown={() => {
-              setSelectedCapsule(contentProps.id);
-            }}
-          >
-            <div className="flex flex-row gap-4 items-center justify-between">
-              <div className="text-left">
-                {contentProps.type} - {contentProps.id.slice(0, 12)}...
-              </div>
-              <div className="flex flex-row gap-2 justify-end">
-                <ButtonLight>
-                  <EditIcon />
-                </ButtonLight>
-                <ButtonLight>
-                  <DeleteIcon />
-                </ButtonLight>
-              </div>
-            </div>
-          </Capsule>
-        ))}
-      </div>
-    </>
+    <CvSectionStandardEditForm
+      headingInputValue={editData?.heading ?? heading ?? ""}
+      onHeadingInputChange={(value) =>
+        onEdit({
+          heading: value,
+        })
+      }
+      contentCapsules={(editData?.content ?? content ?? []).map(
+        (contentProps) => ({
+          id: contentProps.id,
+          ref: (el) => {
+            capsuleRefs.current = [
+              ...capsuleRefs.current.filter(
+                (capsuleRef) => capsuleRef.id !== contentProps.id
+              ),
+              {
+                id: contentProps.id,
+                element: el,
+              },
+            ];
+          },
+          transparent: replacedCapsule === contentProps.id,
+          onMouseDown: () => {
+            setSelectedCapsule(contentProps.id);
+          },
+          icon: <ListIcon />,
+          name: contentProps.id,
+        })
+      )}
+    />
+    // <>
+    //   <div className="flex flex-col gap-2 py-2 text-left">
+    //     <TextInput
+    //       label="Title"
+    //       value={editData?.heading ?? heading ?? ""}
+    //       onValueChange={(value) =>
+    //         onEdit({
+    //           heading: value,
+    //         })
+    //       }
+    //     />
+    //   </div>
+    //   <div className="flex flex-col gap-2 py-2 text-left">
+    //     <label htmlFor="url" className="block text-sm font-medium">
+    //       Content
+    //     </label>
+    //     {(editData?.content ?? content ?? []).map((contentProps) => (
+    //       <Capsule
+    //         key={contentProps.id}
+    //         ref={(el) => {
+    //           capsuleRefs.current = [
+    //             ...capsuleRefs.current.filter(
+    //               (capsuleRef) => capsuleRef.id !== contentProps.id
+    //             ),
+    //             {
+    //               id: contentProps.id,
+    //               element: el,
+    //             },
+    //           ];
+    //         }}
+    //         className={
+    //           replacedCapsule === contentProps.id ? "opacity-15" : undefined
+    //         }
+    //         onMouseDown={() => {
+    //           setSelectedCapsule(contentProps.id);
+    //         }}
+    //       >
+    //         <div className="flex flex-row gap-4 items-center justify-between">
+    //           <div className="text-left">
+    //             {contentProps.type} - {contentProps.id.slice(0, 12)}...
+    //           </div>
+    //           <div className="flex flex-row gap-2 justify-end">
+    //             <ButtonLight>
+    //               <EditIcon />
+    //             </ButtonLight>
+    //             <ButtonLight>
+    //               <DeleteIcon />
+    //             </ButtonLight>
+    //           </div>
+    //         </div>
+    //       </Capsule>
+    //     ))}
+    //   </div>
+    // </>
   );
 }
