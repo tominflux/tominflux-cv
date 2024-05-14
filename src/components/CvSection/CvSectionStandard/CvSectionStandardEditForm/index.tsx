@@ -2,7 +2,6 @@ import { ButtonLight } from "@/components/UI/ButtonLight";
 import { Capsule } from "@/components/UI/Capsule";
 import { DeleteIcon } from "@/components/UI/Icons/DeleteIcon";
 import { EditIcon } from "@/components/UI/Icons/EditIcon";
-import { ListIcon } from "@/components/UI/Icons/ListIcon";
 import { TextInput } from "@/components/UI/TextInput";
 import { ReactNode } from "react";
 
@@ -15,15 +14,22 @@ export interface CvSectionStandardEditFormProps {
     transparent: boolean;
     onMouseDown: () => void;
     icon: ReactNode;
-    name: string;
+    label: string;
   }[];
+  maxLabelLength?: number;
 }
 
 export function CvSectionStandardEditForm({
   headingInputValue,
   onHeadingInputChange,
   contentCapsules,
+  maxLabelLength = 24,
 }: CvSectionStandardEditFormProps) {
+  const getTruncatedLabel = (label: string) => {
+    if (label.length <= maxLabelLength) return label;
+    return `${label.slice(0, maxLabelLength)}...`;
+  };
+
   return (
     <>
       <div className="flex flex-col gap-2 py-2 text-left">
@@ -47,7 +53,7 @@ export function CvSectionStandardEditForm({
             <div className="flex flex-row gap-4 items-center justify-between">
               <div className="flex flex-row gap-2 justify-end">
                 <div>{contentCapsule.icon}</div>
-                <div>{contentCapsule.name.slice(0, 12)}...</div>
+                <div>{getTruncatedLabel(contentCapsule.label)}</div>
               </div>
               <div className="flex flex-row gap-2 justify-end">
                 <ButtonLight>

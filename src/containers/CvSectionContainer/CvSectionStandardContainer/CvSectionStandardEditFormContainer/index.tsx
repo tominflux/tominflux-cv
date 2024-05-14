@@ -8,6 +8,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CapsuleRef, CvSectionStandardEditData } from "..";
 import { CvSectionStandardEditForm } from "@/components/CvSection/CvSectionStandard/CvSectionStandardEditForm";
 import { ListIcon } from "@/components/UI/Icons/ListIcon";
+import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
+import { QuestionMarkIcon } from "@/components/UI/Icons/QuestionMarkIcon";
 
 export interface CvSectionStandardEditFormContainerProps {
   id: string;
@@ -149,6 +151,23 @@ export function CvSectionStandardEditFormContainer({
     return () => window.removeEventListener("mouseup", onMouseUp);
   }, [selectedCapsule]);
 
+  const getContentCapsuleIcon = (contentProps: CvDocumentContent) => {
+    switch (contentProps.type) {
+      case "list":
+        return <ListIcon />;
+      case "lorem":
+        return <QuestionMarkIcon />;
+    }
+  };
+  const getContentCapsuleLabel = (contentProps: CvDocumentContent) => {
+    switch (contentProps.type) {
+      case "list":
+        return contentProps.heading;
+      case "lorem":
+        return "Lorem Ipsum";
+    }
+  };
+
   return (
     <CvSectionStandardEditForm
       headingInputValue={editData?.heading ?? heading ?? ""}
@@ -175,8 +194,8 @@ export function CvSectionStandardEditFormContainer({
           onMouseDown: () => {
             setSelectedCapsule(contentProps.id);
           },
-          icon: <ListIcon />,
-          name: contentProps.id,
+          icon: getContentCapsuleIcon(contentProps),
+          label: getContentCapsuleLabel(contentProps),
         })
       )}
     />

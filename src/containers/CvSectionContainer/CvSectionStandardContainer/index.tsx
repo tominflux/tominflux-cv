@@ -3,7 +3,7 @@ import { CvContentContainer } from "@/containers/CvContentContainer";
 import { useCvStore } from "@/state";
 import { CvDocumentSectionStandard } from "@/types/CvDocument/CvDocumentSection";
 import { useState } from "react";
-import { CvSectionStandardEditFormContainer } from "./CvSectionStandardEditForm";
+import { CvSectionStandardEditFormContainer } from "./CvSectionStandardEditFormContainer";
 
 export interface CapsuleRef {
   id: string;
