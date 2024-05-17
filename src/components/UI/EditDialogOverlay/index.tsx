@@ -10,8 +10,9 @@ export interface EditDialogOverlayProps {
   className?: string;
   children: ReactNode;
   dialogContent: ReactNode;
-  dialogHeading?: string;
-  onDialogConfirm?: () => void;
+  dialogHeading?: ReactNode;
+  dialogSubHeading?: ReactNode;
+  onDialogConfirm?: () => void | boolean;
 }
 
 export function EditDialogOverlay({
@@ -19,6 +20,7 @@ export function EditDialogOverlay({
   children,
   dialogContent,
   dialogHeading,
+  dialogSubHeading,
   onDialogConfirm,
 }: EditDialogOverlayProps) {
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -58,6 +60,11 @@ export function EditDialogOverlay({
               <h2 className="flex items-center gap-2 text-xl font-semibold leading-tight tracking-wide">
                 {dialogHeading}
               </h2>
+              {dialogSubHeading ? (
+                <h3 className="flex items-center gap-2 text-md leading-tight tracking-wide">
+                  {dialogSubHeading}
+                </h3>
+              ) : undefined}
             </div>
           ) : undefined}
           {dialogContent}
@@ -65,8 +72,11 @@ export function EditDialogOverlay({
             <Button
               className="px-6 py-2"
               onClick={() => {
+                if (onDialogConfirm) {
+                  const shouldClose = onDialogConfirm();
+                  if (shouldClose === false) return;
+                }
                 setModalOpen(false);
-                if (onDialogConfirm) onDialogConfirm();
               }}
             >
               <CheckIcon />

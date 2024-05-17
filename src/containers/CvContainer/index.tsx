@@ -14,8 +14,6 @@ export function CvContainer({}: CvContainerProps) {
   useCvFetcher();
   useCvUpdater();
 
-  console.log("DEBUG", cv);
-
   return (
     <CvLayout>
       {cv

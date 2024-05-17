@@ -1,7 +1,9 @@
 import { ButtonLight } from "@/components/UI/ButtonLight";
 import { Capsule } from "@/components/UI/Capsule";
+import { Dialog } from "@/components/UI/Dialog";
 import { DeleteIcon } from "@/components/UI/Icons/DeleteIcon";
 import { EditIcon } from "@/components/UI/Icons/EditIcon";
+import { Modal } from "@/components/UI/Modal";
 import { TextInput } from "@/components/UI/TextInput";
 import { ReactNode } from "react";
 
@@ -15,6 +17,7 @@ export interface CvSectionStandardEditFormProps {
     onMouseDown: () => void;
     icon: ReactNode;
     label: string;
+    onEdit: () => void;
   }[];
   maxLabelLength?: number;
 }
@@ -56,7 +59,7 @@ export function CvSectionStandardEditForm({
                 <div>{getTruncatedLabel(contentCapsule.label)}</div>
               </div>
               <div className="flex flex-row gap-2 justify-end">
-                <ButtonLight>
+                <ButtonLight onClick={contentCapsule.onEdit}>
                   <EditIcon />
                 </ButtonLight>
                 <ButtonLight>
@@ -67,6 +70,11 @@ export function CvSectionStandardEditForm({
           </Capsule>
         ))}
       </div>
+      {/* <Modal isOpen={true}>
+        <Dialog>
+          <p>Lorem Ipsum</p>
+        </Dialog>
+      </Modal> */}
     </>
   );
 }

@@ -8,20 +8,25 @@ export interface CvSectionStandardEditData {
 export interface CvSectionStandardProps {
   heading: string;
   children: ReactNode;
+  editHeading: ReactNode;
+  editSubHeading?: ReactNode;
   editForm: ReactNode;
-  onUpdate?: () => void;
+  onUpdate?: () => void | boolean;
 }
 
 export function CvSectionStandard({
   heading,
   children,
+  editHeading,
+  editSubHeading,
   editForm,
   onUpdate,
 }: CvSectionStandardProps) {
   return (
     <EditDialogOverlay
       className={`w-full py-3`}
-      dialogHeading="Edit Section"
+      dialogHeading={editHeading}
+      dialogSubHeading={editSubHeading}
       dialogContent={editForm}
       onDialogConfirm={onUpdate ? () => onUpdate() : undefined}
     >

@@ -15,12 +15,14 @@ export interface CvSectionStandardEditFormContainerProps {
   id: string;
   editData: CvSectionStandardEditData;
   onEdit: (data: Partial<CvSectionStandardEditData>) => void;
+  onEditContent: (id: string) => void;
 }
 
 export function CvSectionStandardEditFormContainer({
   id,
   editData,
   onEdit,
+  onEditContent,
 }: CvSectionStandardEditFormContainerProps) {
   const { cv } = useCvStore();
 
@@ -196,6 +198,7 @@ export function CvSectionStandardEditFormContainer({
           },
           icon: getContentCapsuleIcon(contentProps),
           label: getContentCapsuleLabel(contentProps),
+          onEdit: () => onEditContent(contentProps.id),
         })
       )}
     />

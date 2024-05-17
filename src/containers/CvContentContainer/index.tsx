@@ -5,10 +5,8 @@ export type CvContentContainerProps = CvDocumentContent;
 
 export function CvContentContainer(props: CvContentContainerProps) {
   switch (props.type) {
-    case "list": {
-      const { type, ...cvContentListProps } = props;
-      return <CvContentList {...cvContentListProps} />;
-    }
+    case "list":
+      return <CvContentList {...props} />;
     default:
       return <></>;
   }

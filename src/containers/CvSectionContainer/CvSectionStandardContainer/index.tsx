@@ -4,6 +4,10 @@ import { useCvStore } from "@/state";
 import { CvDocumentSectionStandard } from "@/types/CvDocument/CvDocumentSection";
 import { useState } from "react";
 import { CvSectionStandardEditFormContainer } from "./CvSectionStandardEditFormContainer";
+import { ListIcon } from "@/components/UI/Icons/ListIcon";
+import { QuestionMarkIcon } from "@/components/UI/Icons/QuestionMarkIcon";
+import { CvContentEditFormContainer } from "@/containers/CvContentEditFormContainer";
+import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
 
 export interface CapsuleRef {
   id: string;
@@ -24,12 +28,20 @@ export function CvSectionStandardContainer({
 }: CvSectionStandardContainerProps) {
   const { updateSection } = useCvStore();
 
+  const [editingContent, setEditingContent] = useState<string | undefined>(
+    undefined
+  );
+
   const [editData, setEditData] = useState<CvSectionStandardEditData>({
     heading,
     content,
   });
 
-  const onUpdate: () => void = () => {
+  const editingContentItem = editingContent
+    ? editData.content.find((contentItem) => contentItem.id === editingContent)
+    : undefined;
+
+  const onUpdateSection: () => void | boolean = () => {
     const section: CvDocumentSectionStandard = {
       id,
       type: "standard",
@@ -38,21 +50,78 @@ export function CvSectionStandardContainer({
     updateSection(section);
   };
 
+  const onUpdateContent: () => void | boolean = () => {
+    setEditingContent(undefined);
+    return false;
+  };
+
+  const getEditContentSubHeading = () => {
+    if (!editingContent) return undefined;
+    const contentItem = content.find(
+      (contentItem) => contentItem.id === editingContent
+    );
+    if (!contentItem) return undefined;
+    switch (contentItem.type) {
+      case "list":
+        return (
+          <>
+            <ListIcon />
+            <span>List</span>
+          </>
+        );
+      case "lorem":
+        return (
+          <>
+            <QuestionMarkIcon />
+            <span>Lorem Ipsum</span>
+          </>
+        );
+    }
+  };
+
+  const replaceContent = (nextContent: CvDocumentContent) => {
+    const index = editData.content.findIndex(
+      (contentItem) => contentItem.id === nextContent.id
+    );
+    console.log("DEBUG", { index, nextContent });
+    if (index === -1) return;
+    setEditData({
+      ...editData,
+      content: [
+        ...editData.content.slice(0, index),
+        nextContent,
+        ...editData.content.slice(index + 1),
+      ],
+    });
+  };
+
   return (
     <CvSectionStandard
       heading={heading}
-      onUpdate={onUpdate}
+      onUpdate={editingContent ? onUpdateContent : onUpdateSection}
+      editHeading={editingContent ? "Edit Content" : "Edit Section"}
+      editSubHeading={getEditContentSubHeading()}
       editForm={
-        <CvSectionStandardEditFormContainer
-          id={id}
-          editData={editData}
-          onEdit={(newEditData) => {
-            setEditData((prevEditData) => ({
-              ...prevEditData,
-              ...newEditData,
-            }));
-          }}
-        />
+        editingContentItem ? (
+          <CvContentEditFormContainer
+            content={editingContentItem}
+            onUpdate={(nextContent) => {
+              replaceContent(nextContent);
+            }}
+          />
+        ) : (
+          <CvSectionStandardEditFormContainer
+            id={id}
+            editData={editData}
+            onEdit={(newEditData) => {
+              setEditData((prevEditData) => ({
+                ...prevEditData,
+                ...newEditData,
+              }));
+            }}
+            onEditContent={(contentId) => setEditingContent(contentId)}
+          />
+        )
       }
     >
       {content.map((contentProps) => (
