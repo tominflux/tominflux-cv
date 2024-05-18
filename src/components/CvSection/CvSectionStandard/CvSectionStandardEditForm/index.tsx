@@ -15,12 +15,16 @@ export interface CvSectionStandardEditFormProps {
     id: string;
     className?: string;
   } & CvSectionStandardContentCapsuleProps)[];
+  contentOrder: string[];
+  onContentOrderChange: (contentOrder: string[]) => void;
 }
 
 export function CvSectionStandardEditForm({
   headingInputValue,
   onHeadingInputChange,
   content,
+  contentOrder,
+  onContentOrderChange,
 }: CvSectionStandardEditFormProps) {
   return (
     <>
@@ -41,6 +45,8 @@ export function CvSectionStandardEditForm({
             className,
             content: <CvSectionStandardContentCapsule {...props} />,
           }))}
+          itemOrder={contentOrder}
+          onItemOrderChange={onContentOrderChange}
         />
       </div>
     </>

@@ -16,9 +16,15 @@ export interface ArrangeableListItem {
 
 export interface ArrangeableListProps {
   items: ArrangeableListItem[];
+  itemOrder: string[];
+  onItemOrderChange: (itemOrder: string[]) => void;
 }
 
-export function ArrangeableList({ items }: ArrangeableListProps) {
+export function ArrangeableList({
+  items,
+  itemOrder,
+  onItemOrderChange,
+}: ArrangeableListProps) {
   const capsuleRefs = useRef<CapsuleRef[]>([]);
   const hoveringCapsuleRef = useRef<HTMLDivElement | null>(null);
   const [selectedCapsule, setSelectedCapsule] = useState<string | undefined>(
@@ -32,13 +38,9 @@ export function ArrangeableList({ items }: ArrangeableListProps) {
     { x: number; y: number } | undefined
   >(undefined);
 
-  const [itemOrder, setItemOrder] = useState<string[]>([]);
   const orderedItems = itemOrder.map((itemId) =>
     items.find(({ id }) => id === itemId)
   );
-  useEffect(() => {
-    setItemOrder(items.map(({ id }) => id));
-  }, [items]);
 
   const swapItems = useCallback(
     (idA: string, idB: string) => {
@@ -46,9 +48,9 @@ export function ArrangeableList({ items }: ArrangeableListProps) {
       const indexB = itemOrder.findIndex((id) => id === idB);
       if (indexA === -1 || indexB === -1) return;
       const nextItemOrder = swapElements(itemOrder, indexA, indexB);
-      setItemOrder(nextItemOrder);
+      onItemOrderChange(nextItemOrder);
     },
-    [itemOrder]
+    [itemOrder, onItemOrderChange]
   );
 
   // Record mouse down position
@@ -141,12 +143,13 @@ export function ArrangeableList({ items }: ArrangeableListProps) {
             className={
               selectedCapsule === item.id ? "opacity-0" : item.className
             }
-            onMouseDown={(event) => {
+            onMouseDown={() => {
               setSelectedCapsule(item.id);
               const element = capsuleRefs.current.find(
                 (capsuleRef) => capsuleRef.id === item.id
               )?.element;
               if (!element) return;
+
               setSelectedCapsulePosition({
                 x: element.offsetLeft,
                 y: element.offsetTop,

@@ -30,6 +30,11 @@ export function CvSectionStandardEditFormContainer({
   const heading = section?.heading;
   const content = section?.content;
 
+  const [contentOrder, setContentOrder] = useState<string[]>([]);
+  useEffect(() => {
+    setContentOrder(content?.map((contentItem) => contentItem.id) ?? []);
+  }, [content]);
+
   const getContentCapsuleIcon = (contentProps: CvDocumentContent) => {
     switch (contentProps.type) {
       case "list":
@@ -62,6 +67,18 @@ export function CvSectionStandardEditFormContainer({
         onEdit: () => onEditContent(contentProps.id),
         onDelete: () => {},
       }))}
+      contentOrder={contentOrder}
+      onContentOrderChange={(newContentOrder) => {
+        setContentOrder(newContentOrder);
+        onEdit({
+          content: newContentOrder.map(
+            (contentId) =>
+              editData.content.find(
+                (contentItem) => contentItem.id === contentId
+              ) as CvDocumentContent
+          ),
+        });
+      }}
     />
   );
 }
