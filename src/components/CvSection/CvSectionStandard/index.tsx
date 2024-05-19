@@ -1,3 +1,4 @@
+import { EditOverlay } from "@/components/Edit/EditOverlay";
 import { EditDialogOverlay } from "@/components/UI/EditDialogOverlay";
 import { TextInput } from "@/components/UI/TextInput";
 import { ReactNode, useState } from "react";
@@ -8,30 +9,21 @@ export interface CvSectionStandardEditData {
 export interface CvSectionStandardProps {
   heading: string;
   children: ReactNode;
-  editHeading: ReactNode;
-  editSubHeading?: ReactNode;
-  editForm: ReactNode;
-  onUpdate?: () => void | boolean;
+  onEditButtonClick: () => void;
 }
 
 export function CvSectionStandard({
   heading,
   children,
-  editHeading,
-  editSubHeading,
-  editForm,
-  onUpdate,
+  onEditButtonClick,
 }: CvSectionStandardProps) {
   return (
-    <EditDialogOverlay
+    <EditOverlay
       className={`w-full py-3`}
-      dialogHeading={editHeading}
-      dialogSubHeading={editSubHeading}
-      dialogContent={editForm}
-      onDialogConfirm={onUpdate ? () => onUpdate() : undefined}
+      onEditButtonClick={onEditButtonClick}
     >
       {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
       <div className={`px-3`}>{children}</div>
-    </EditDialogOverlay>
+    </EditOverlay>
   );
 }

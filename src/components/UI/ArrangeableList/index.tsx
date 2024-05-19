@@ -143,12 +143,13 @@ export function ArrangeableList({
             className={
               selectedCapsule === item.id ? "opacity-0" : item.className
             }
-            onMouseDown={() => {
-              setSelectedCapsule(item.id);
+            onMouseDown={(event) => {
               const element = capsuleRefs.current.find(
                 (capsuleRef) => capsuleRef.id === item.id
               )?.element;
               if (!element) return;
+              if (event.target !== element) return;
+              setSelectedCapsule(item.id);
 
               setSelectedCapsulePosition({
                 x: element.offsetLeft,

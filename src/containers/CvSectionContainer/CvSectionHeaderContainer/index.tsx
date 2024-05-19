@@ -4,7 +4,7 @@ import {
   CvSectionHeader,
   CvSectionHeaderEditData,
 } from "@/components/CvSection/CvSectionHeader";
-import { useCvStore } from "@/state";
+import { useCvStore } from "@/state/CvStore";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 
 export type CvSectionHeaderContainerProps = CvDocumentSectionHeader;

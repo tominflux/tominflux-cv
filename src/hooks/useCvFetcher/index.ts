@@ -1,4 +1,4 @@
-import { useCvStore } from "@/state";
+import { useCvStore } from "@/state/CvStore";
 import { CvDocument } from "@/types/CvDocument";
 import { fetcher } from "@/utils/fetcher";
 import { useParams } from "next/navigation";

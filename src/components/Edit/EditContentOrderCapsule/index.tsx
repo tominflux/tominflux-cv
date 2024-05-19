@@ -1,9 +1,9 @@
 import { ButtonLight } from "@/components/UI/ButtonLight";
 import { DeleteIcon } from "@/components/UI/Icons/DeleteIcon";
 import { EditIcon } from "@/components/UI/Icons/EditIcon";
-import { MouseEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 
-export interface CvSectionStandardContentCapsuleProps {
+export interface EditContentOrderCapsuleProps {
   transparent?: boolean;
   icon: ReactNode;
   label: string;
@@ -12,29 +12,29 @@ export interface CvSectionStandardContentCapsuleProps {
   onDelete: () => void;
 }
 
-export function CvSectionStandardContentCapsule({
+export function EditContentOrderCapsule({
   icon,
   label,
   maxLabelLength = 24,
   onEdit,
   onDelete,
-}: CvSectionStandardContentCapsuleProps) {
+}: EditContentOrderCapsuleProps) {
   const getTruncatedLabel = (label: string) => {
     if (label.length <= maxLabelLength) return label;
     return `${label.slice(0, maxLabelLength)}...`;
   };
 
   return (
-    <div className="flex flex-row gap-4 items-center justify-between">
+    <div className="flex flex-row gap-4 items-center justify-between pointer-events-none">
       <div className="flex flex-row gap-2 justify-end">
         <div>{icon}</div>
         <div>{getTruncatedLabel(label)}</div>
       </div>
       <div className="flex flex-row gap-2 justify-end">
-        <ButtonLight onClick={onEdit}>
+        <ButtonLight className="pointer-events-auto" onClick={onEdit}>
           <EditIcon />
         </ButtonLight>
-        <ButtonLight onClick={onDelete}>
+        <ButtonLight className="pointer-events-auto" onClick={onDelete}>
           <DeleteIcon />
         </ButtonLight>
       </div>

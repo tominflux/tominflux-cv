@@ -1,4 +1,4 @@
-import { useCvStore } from "@/state";
+import { useCvStore } from "@/state/CvStore";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 

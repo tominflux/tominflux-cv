@@ -1,33 +1,35 @@
-import {
-  ArrangeableList,
-  ArrangeableListItem,
-} from "@/components/UI/ArrangeableList";
+import { ArrangeableList } from "@/components/UI/ArrangeableList";
+import { EditDialog } from "@/components/UI/EditDialog";
 import { TextInput } from "@/components/UI/TextInput";
 import {
-  CvSectionStandardContentCapsule,
-  CvSectionStandardContentCapsuleProps,
-} from "../CvSectionStandardContentCapsule";
+  EditContentOrderCapsule,
+  EditContentOrderCapsuleProps,
+} from "../../EditContentOrderCapsule";
 
-export interface CvSectionStandardEditFormProps {
+export interface EditSectionStandardDialogProps {
+  isOpen: boolean;
   headingInputValue: string;
   onHeadingInputChange: (value: string) => void;
   content: ({
     id: string;
     className?: string;
-  } & CvSectionStandardContentCapsuleProps)[];
+  } & EditContentOrderCapsuleProps)[];
   contentOrder: string[];
   onContentOrderChange: (contentOrder: string[]) => void;
+  onConfirm: () => void;
 }
 
-export function CvSectionStandardEditForm({
+export function EditSectionStandardDialog({
+  isOpen,
   headingInputValue,
   onHeadingInputChange,
   content,
   contentOrder,
   onContentOrderChange,
-}: CvSectionStandardEditFormProps) {
+  onConfirm,
+}: EditSectionStandardDialogProps) {
   return (
-    <>
+    <EditDialog isOpen={isOpen} heading="Edit Section" onConfirm={onConfirm}>
       <div className="flex flex-col gap-2 py-2 text-left">
         <TextInput
           label="Title"
@@ -43,12 +45,12 @@ export function CvSectionStandardEditForm({
           items={content.map(({ id, className, ...props }) => ({
             id,
             className,
-            content: <CvSectionStandardContentCapsule {...props} />,
+            content: <EditContentOrderCapsule {...props} />,
           }))}
           itemOrder={contentOrder}
           onItemOrderChange={onContentOrderChange}
         />
       </div>
-    </>
+    </EditDialog>
   );
 }
