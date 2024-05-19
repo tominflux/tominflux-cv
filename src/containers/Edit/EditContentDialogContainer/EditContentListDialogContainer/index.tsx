@@ -115,7 +115,7 @@ export function EditContentListDialogContainer() {
       itemOrder={content ? content.items.map((item) => item.id) : []}
       onItemOrderChange={onItemOrderChange}
       onConfirm={onConfirm}
-      editTextFieldDialog={editTextFieldDialog}
+      editTextAreaDialog={editTextFieldDialog}
     />
   );
 }

@@ -2,13 +2,13 @@ import { ArrangeableList } from "@/components/UI/ArrangeableList";
 import { EditDialog } from "@/components/UI/EditDialog";
 import { TextInput } from "@/components/UI/TextInput";
 import {
+  EditTextAreaDialog,
+  EditTextAreaDialogProps,
+} from "../../EditTextAreaDialog";
+import {
   EditContentListOrderCapsule,
   EditContentListOrderCapsuleProps,
 } from "./EditContentListOrderCapsule";
-import {
-  EditTextFieldDialog,
-  EditTextFieldDialogProps,
-} from "../../EditTextFieldDialog";
 
 export interface EditContentListDialogProps {
   isOpen: boolean;
@@ -22,7 +22,7 @@ export interface EditContentListDialogProps {
   itemOrder: string[];
   onItemOrderChange: (itemOrder: string[]) => void;
   onConfirm: () => void;
-  editTextFieldDialog?: EditTextFieldDialogProps;
+  editTextAreaDialog?: EditTextAreaDialogProps;
 }
 
 export function EditContentListDialog({
@@ -34,7 +34,7 @@ export function EditContentListDialog({
   itemOrder,
   onItemOrderChange,
   onConfirm,
-  editTextFieldDialog,
+  editTextAreaDialog,
 }: EditContentListDialogProps) {
   return (
     <>
@@ -64,8 +64,8 @@ export function EditContentListDialog({
           />
         </div>
       </EditDialog>
-      {editTextFieldDialog ? (
-        <EditTextFieldDialog {...editTextFieldDialog} />
+      {editTextAreaDialog ? (
+        <EditTextAreaDialog {...editTextAreaDialog} />
       ) : undefined}
     </>
   );
