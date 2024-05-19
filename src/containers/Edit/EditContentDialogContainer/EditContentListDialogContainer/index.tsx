@@ -1,7 +1,9 @@
 import { EditContentListDialog } from "@/components/Edit/EditContentDialog/EditContentListDialog";
 import { EditTextFieldDialogProps } from "@/components/Edit/EditTextFieldDialog";
+import { ConfirmationDialogProps } from "@/components/UI/ConfirmationDialog";
 import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
+import { removeIdElement } from "@/utils/removeIdElement";
 import { replaceIdElement } from "@/utils/replaceIdElement";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -32,7 +34,8 @@ export function EditContentListDialogContainer() {
   const [editHeadingValue, setEditHeadingValue] = useState<string>(
     content?.heading ?? ""
   );
-  const [editingTextField, setEditingTextField] = useState<string | undefined>(
+  const [editingItem, setEditingItem] = useState<string | undefined>(undefined);
+  const [deletingItem, setDeletingItem] = useState<string | undefined>(
     undefined
   );
 
@@ -42,8 +45,8 @@ export function EditContentListDialogContainer() {
       id: item.id,
       icon: <></>,
       label: item.value,
-      onEdit: () => setEditingTextField(item.id),
-      onDelete: () => {},
+      onEdit: () => setEditingItem(item.id),
+      onDelete: () => setDeletingItem(item.id),
     }));
   }, [content]);
 
@@ -81,29 +84,47 @@ export function EditContentListDialogContainer() {
     closeContentDialog();
   }, [closeContentDialog]);
 
-  const editTextFieldDialog: EditTextFieldDialogProps | undefined =
-    useMemo(() => {
-      if (!editingTextField) return undefined;
-      if (!section) return;
-      if (!content) return undefined;
-      const item = content.items.find((item) => item.id === editingTextField);
-      if (!item) return undefined;
-      return {
-        isOpen: true,
-        heading: "Edit List Item",
-        value: item.value,
-        onConfirm: (value) => {
-          updateContent(section.id, {
-            ...content,
-            items: replaceIdElement(content.items, {
-              ...item,
-              value,
-            }),
-          });
-          setEditingTextField(undefined);
-        },
-      };
-    }, [content, editingTextField, section, updateContent]);
+  const editItemDialog: EditTextFieldDialogProps | undefined = useMemo(() => {
+    if (!editingItem) return undefined;
+    if (!section) return;
+    if (!content) return undefined;
+    const item = content.items.find((item) => item.id === editingItem);
+    if (!item) return undefined;
+    return {
+      isOpen: true,
+      heading: "Edit List Item",
+      value: item.value,
+      onConfirm: (value) => {
+        updateContent(section.id, {
+          ...content,
+          items: replaceIdElement(content.items, {
+            ...item,
+            value,
+          }),
+        });
+        setEditingItem(undefined);
+      },
+    };
+  }, [content, editingItem, section, updateContent]);
+
+  const deleteItemDialog: ConfirmationDialogProps | undefined = useMemo(() => {
+    if (!deletingItem) return undefined;
+    if (!section) return;
+    if (!content) return undefined;
+    return {
+      isOpen: true,
+      heading: "Delete List Item",
+      subheading: "Are you sure you want to delete this List Item?",
+      onCancel: () => setDeletingItem(undefined),
+      onConfirm: () => {
+        updateContent(section.id, {
+          ...content,
+          items: removeIdElement(content.items, deletingItem),
+        });
+        setDeletingItem(undefined);
+      },
+    };
+  }, [content, deletingItem, section, updateContent]);
 
   return (
     <EditContentListDialog
@@ -115,7 +136,8 @@ export function EditContentListDialogContainer() {
       itemOrder={content ? content.items.map((item) => item.id) : []}
       onItemOrderChange={onItemOrderChange}
       onConfirm={onConfirm}
-      editTextAreaDialog={editTextFieldDialog}
+      editItemDialog={editItemDialog}
+      deleteItemDialog={deleteItemDialog}
     />
   );
 }

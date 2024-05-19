@@ -9,6 +9,9 @@ import {
   EditContentListOrderCapsule,
   EditContentListOrderCapsuleProps,
 } from "./EditContentListOrderCapsule";
+import ConfirmationDialog, {
+  ConfirmationDialogProps,
+} from "@/components/UI/ConfirmationDialog";
 
 export interface EditContentListDialogProps {
   isOpen: boolean;
@@ -22,7 +25,8 @@ export interface EditContentListDialogProps {
   itemOrder: string[];
   onItemOrderChange: (itemOrder: string[]) => void;
   onConfirm: () => void;
-  editTextAreaDialog?: EditTextAreaDialogProps;
+  editItemDialog?: EditTextAreaDialogProps;
+  deleteItemDialog?: ConfirmationDialogProps;
 }
 
 export function EditContentListDialog({
@@ -34,7 +38,8 @@ export function EditContentListDialog({
   itemOrder,
   onItemOrderChange,
   onConfirm,
-  editTextAreaDialog,
+  editItemDialog,
+  deleteItemDialog,
 }: EditContentListDialogProps) {
   return (
     <>
@@ -64,8 +69,9 @@ export function EditContentListDialog({
           />
         </div>
       </EditDialog>
-      {editTextAreaDialog ? (
-        <EditTextAreaDialog {...editTextAreaDialog} />
+      {editItemDialog ? <EditTextAreaDialog {...editItemDialog} /> : undefined}
+      {deleteItemDialog ? (
+        <ConfirmationDialog {...deleteItemDialog} />
       ) : undefined}
     </>
   );
