@@ -64,6 +64,33 @@ export function EditSectionStandardDialogContainer() {
     }));
   }, [openContentDialog, section]);
 
+  const onHeadingInputApply = useCallback(
+    (value: string) => {
+      if (!section) return;
+      updateSection({
+        ...section,
+        heading: value,
+      });
+    },
+    [section, updateSection]
+  );
+
+  const onContentOrderChange = useCallback(
+    (newContentOrder: string[]) => {
+      if (!section) return;
+      updateSection({
+        ...section,
+        content: newContentOrder.map(
+          (contentId) =>
+            section.content.find(
+              (contentItem) => contentItem.id === contentId
+            ) as CvDocumentContent
+        ),
+      });
+    },
+    [section, updateSection]
+  );
+
   const onConfirm = useCallback(() => {
     if (!section) return;
     updateSection({
@@ -91,11 +118,10 @@ export function EditSectionStandardDialogContainer() {
       isOpen={!editContentDialog}
       headingInputValue={editHeadingValue}
       onHeadingInputChange={(value) => setEditHeadingValue(value)}
+      onHeadingInputApply={onHeadingInputApply}
       content={arrangeableListItems}
-      contentOrder={contentOrder}
-      onContentOrderChange={(newContentOrder) =>
-        setContentOrder(newContentOrder)
-      }
+      contentOrder={section.content.map((contentItem) => contentItem.id)}
+      onContentOrderChange={onContentOrderChange}
       onConfirm={onConfirm}
     />
   );

@@ -10,6 +10,7 @@ export interface EditSectionStandardDialogProps {
   isOpen: boolean;
   headingInputValue: string;
   onHeadingInputChange: (value: string) => void;
+  onHeadingInputApply: (value: string) => void;
   content: ({
     id: string;
     className?: string;
@@ -23,6 +24,7 @@ export function EditSectionStandardDialog({
   isOpen,
   headingInputValue,
   onHeadingInputChange,
+  onHeadingInputApply,
   content,
   contentOrder,
   onContentOrderChange,
@@ -35,6 +37,7 @@ export function EditSectionStandardDialog({
           label="Title"
           value={headingInputValue}
           onValueChange={onHeadingInputChange}
+          onValueApply={onHeadingInputApply}
         />
       </div>
       <div className="flex flex-col gap-2 py-2 text-left">

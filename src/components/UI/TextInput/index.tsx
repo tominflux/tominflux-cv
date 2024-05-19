@@ -10,6 +10,7 @@ export interface TextInputProps {
   id?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  onValueApply?: (value: string) => void;
 }
 
 export function TextInput({
@@ -21,6 +22,7 @@ export function TextInput({
   id,
   value,
   onValueChange,
+  onValueApply,
 }: TextInputProps) {
   const getInputRoundedBordersClass = () => {
     if (prefix && suffix) return "rounded-md";
@@ -55,6 +57,14 @@ export function TextInput({
           onChange={
             onValueChange ? (e) => onValueChange(e.target.value) : undefined
           }
+          onBlur={
+            onValueApply ? (e) => onValueApply(e.target.value) : undefined
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.currentTarget.blur();
+            }
+          }}
         />
         {suffix ? (
           <span className="flex items-center px-3 pointer-events-none sm:text-sm rounded-r-md dark:bg-gray-300">
