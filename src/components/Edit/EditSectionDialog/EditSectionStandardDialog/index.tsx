@@ -9,8 +9,8 @@ import {
 export interface EditSectionStandardDialogProps {
   isOpen: boolean;
   headingInputValue: string;
-  onHeadingInputChange: (value: string) => void;
-  onHeadingInputApply: (value: string) => void;
+  onHeadingInputChange?: (value: string) => void;
+  onHeadingInputApply?: (value: string) => void;
   content: ({
     id: string;
     className?: string;

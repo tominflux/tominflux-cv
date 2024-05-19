@@ -11,7 +11,7 @@ export interface EditContentListOrderCapsuleProps {
 
 export function EditContentListOrderCapsule({
   label,
-  maxLabelLength = 60,
+  maxLabelLength = 30,
   onEdit,
   onDelete,
 }: EditContentListOrderCapsuleProps) {
@@ -21,15 +21,15 @@ export function EditContentListOrderCapsule({
   };
 
   return (
-    <div className="flex flex-row gap-4 items-center justify-between">
+    <div className="flex flex-row gap-4 items-center justify-between pointer-events-none">
       <div className="flex flex-row gap-2 justify-end">
         <div>{getTruncatedLabel(label)}</div>
       </div>
       <div className="flex flex-row gap-2 justify-end">
-        <ButtonLight onClick={onEdit}>
+        <ButtonLight onClick={onEdit} className="pointer-events-auto">
           <EditIcon />
         </ButtonLight>
-        <ButtonLight onClick={onDelete}>
+        <ButtonLight onClick={onDelete} className="pointer-events-auto">
           <DeleteIcon />
         </ButtonLight>
       </div>
