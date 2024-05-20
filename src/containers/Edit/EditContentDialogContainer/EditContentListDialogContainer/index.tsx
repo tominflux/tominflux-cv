@@ -5,7 +5,7 @@ import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
 import { removeIdElement } from "@/utils/removeIdElement";
 import { replaceIdElement } from "@/utils/replaceIdElement";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export function EditContentListDialogContainer() {
   const { cv, updateContent } = useCvStore();
@@ -126,6 +126,21 @@ export function EditContentListDialogContainer() {
     };
   }, [content, deletingItem, section, updateContent]);
 
+  const onAddItem = useCallback(() => {
+    if (!section) return;
+    if (!content) return undefined;
+    updateContent(section.id, {
+      ...content,
+      items: [
+        ...content.items,
+        {
+          id: window.crypto.randomUUID(),
+          value: "Lorem ipsum",
+        },
+      ],
+    });
+  }, [content, section, updateContent]);
+
   return (
     <EditContentListDialog
       isOpen={editContentDialog !== undefined}
@@ -138,6 +153,7 @@ export function EditContentListDialogContainer() {
       onConfirm={onConfirm}
       editItemDialog={editItemDialog}
       deleteItemDialog={deleteItemDialog}
+      onAddItem={onAddItem}
     />
   );
 }

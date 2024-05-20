@@ -42,7 +42,7 @@ export function EditDialogOverlay({
               className="width-max pointer-events-auto"
               onClick={onEditButtonClick}
             >
-              <div className="flex flow-row gap-2 items-center">
+              <div className="flex flow-row gap-2 items-center justify-center">
                 <EditIcon />
                 <span>Edit</span>
               </div>

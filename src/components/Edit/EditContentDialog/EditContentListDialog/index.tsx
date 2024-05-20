@@ -12,6 +12,8 @@ import {
 import ConfirmationDialog, {
   ConfirmationDialogProps,
 } from "@/components/UI/ConfirmationDialog";
+import { ButtonLight } from "@/components/UI/ButtonLight";
+import { PlusCircleIcon } from "@/components/UI/Icons/PlusCircleIcon";
 
 export interface EditContentListDialogProps {
   isOpen: boolean;
@@ -27,6 +29,7 @@ export interface EditContentListDialogProps {
   onConfirm: () => void;
   editItemDialog?: EditTextAreaDialogProps;
   deleteItemDialog?: ConfirmationDialogProps;
+  onAddItem?: () => void;
 }
 
 export function EditContentListDialog({
@@ -40,6 +43,7 @@ export function EditContentListDialog({
   onConfirm,
   editItemDialog,
   deleteItemDialog,
+  onAddItem,
 }: EditContentListDialogProps) {
   return (
     <>
@@ -67,6 +71,12 @@ export function EditContentListDialog({
             itemOrder={itemOrder}
             onItemOrderChange={onItemOrderChange}
           />
+          <ButtonLight onClick={onAddItem ? () => onAddItem() : undefined}>
+            <div className="flex flow-row gap-2 items-center justify-center">
+              <PlusCircleIcon />
+              <span>Add Item</span>
+            </div>
+          </ButtonLight>
         </div>
       </EditDialog>
       {editItemDialog ? <EditTextAreaDialog {...editItemDialog} /> : undefined}
