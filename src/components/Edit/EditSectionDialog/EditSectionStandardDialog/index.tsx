@@ -8,6 +8,12 @@ import {
 import ConfirmationDialog, {
   ConfirmationDialogProps,
 } from "@/components/UI/ConfirmationDialog";
+import {
+  AddContentDialog,
+  AddContentDialogProps,
+} from "../../AddContentDialog";
+import { ButtonLight } from "@/components/UI/ButtonLight";
+import { PlusCircleIcon } from "@/components/UI/Icons/PlusCircleIcon";
 
 export interface EditSectionStandardDialogProps {
   isOpen: boolean;
@@ -22,6 +28,8 @@ export interface EditSectionStandardDialogProps {
   onContentOrderChange: (contentOrder: string[]) => void;
   onConfirm: () => void;
   deleteContentDialog?: ConfirmationDialogProps;
+  addContentDialog?: AddContentDialogProps;
+  onAddContent?: () => void;
 }
 
 export function EditSectionStandardDialog({
@@ -34,6 +42,8 @@ export function EditSectionStandardDialog({
   onContentOrderChange,
   onConfirm,
   deleteContentDialog,
+  addContentDialog,
+  onAddContent,
 }: EditSectionStandardDialogProps) {
   return (
     <>
@@ -59,10 +69,21 @@ export function EditSectionStandardDialog({
             itemOrder={contentOrder}
             onItemOrderChange={onContentOrderChange}
           />
+          <ButtonLight
+            onClick={onAddContent ? () => onAddContent() : undefined}
+          >
+            <div className="flex flow-row gap-2 items-center justify-center">
+              <PlusCircleIcon />
+              <span>Add Content</span>
+            </div>
+          </ButtonLight>
         </div>
       </EditDialog>
       {deleteContentDialog ? (
         <ConfirmationDialog {...deleteContentDialog} />
+      ) : undefined}
+      {addContentDialog ? (
+        <AddContentDialog {...addContentDialog} />
       ) : undefined}
     </>
   );

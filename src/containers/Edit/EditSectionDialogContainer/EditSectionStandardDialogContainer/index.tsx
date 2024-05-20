@@ -1,3 +1,4 @@
+import { AddContentDialogProps } from "@/components/Edit/AddContentDialog";
 import { EditSectionStandardDialog } from "@/components/Edit/EditSectionDialog/EditSectionStandardDialog";
 import { ConfirmationDialogProps } from "@/components/UI/ConfirmationDialog";
 import { ListIcon } from "@/components/UI/Icons/ListIcon";
@@ -5,6 +6,7 @@ import { QuestionMarkIcon } from "@/components/UI/Icons/QuestionMarkIcon";
 import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
 import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
+import { createStarterContent } from "@/utils/create/createStarterContent";
 import { removeIdElement } from "@/utils/removeIdElement";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -56,6 +58,7 @@ export function EditSectionStandardDialogContainer() {
   const [deletingContent, setDeletingContent] = useState<string | undefined>(
     undefined
   );
+  const [addingContent, setAddingContent] = useState<boolean>(false);
   const arrangeableListItems = useMemo(() => {
     if (!section) return [];
     return section.content.map((contentItem) => ({
@@ -137,6 +140,24 @@ export function EditSectionStandardDialogContainer() {
       };
     }, [deletingContent, section, updateSection]);
 
+  const addContentDialog: AddContentDialogProps | undefined = useMemo(() => {
+    if (!addingContent) return undefined;
+    if (!section) return undefined;
+    return {
+      isOpen: true,
+      onConfirm: (selectedKey) => {
+        const contentType = selectedKey as CvDocumentContent["type"];
+        const newContent = createStarterContent(contentType);
+        updateSection({
+          ...section,
+          content: [...section.content, newContent],
+        });
+        setAddingContent(false);
+      },
+      onCancel: () => setAddingContent(false),
+    };
+  }, [addingContent, section, updateSection]);
+
   if (!section) return <></>;
   return (
     <EditSectionStandardDialog
@@ -149,6 +170,8 @@ export function EditSectionStandardDialogContainer() {
       onContentOrderChange={onContentOrderChange}
       onConfirm={onConfirm}
       deleteContentDialog={deleteContentDialog}
+      addContentDialog={addContentDialog}
+      onAddContent={() => setAddingContent(true)}
     />
   );
 }

@@ -28,6 +28,17 @@ export type CvDocumentSectionStandard =
 
 /******************************/
 
+export const cvDocumentSectionContentSupportedSchema = z.discriminatedUnion(
+  "type",
+  [cvDocumentSectionStandardSchema]
+);
+export type CvDocumentSectionContentSupportedSchema =
+  typeof cvDocumentSectionContentSupportedSchema;
+export type CvDocumentSectionContentSupported =
+  z.infer<CvDocumentSectionContentSupportedSchema>;
+
+/******************************/
+
 export const cvDocumentSectionSchema = z.discriminatedUnion("type", [
   cvDocumentSectionHeaderSchema,
   cvDocumentSectionStandardSchema,

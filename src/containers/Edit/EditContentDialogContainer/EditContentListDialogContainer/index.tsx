@@ -5,6 +5,7 @@ import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
 import { removeIdElement } from "@/utils/removeIdElement";
 import { replaceIdElement } from "@/utils/replaceIdElement";
+import { uuid } from "@/utils/uuid";
 import { useCallback, useMemo, useState } from "react";
 
 export function EditContentListDialogContainer() {
@@ -134,7 +135,7 @@ export function EditContentListDialogContainer() {
       items: [
         ...content.items,
         {
-          id: window.crypto.randomUUID(),
+          id: uuid(),
           value: "Lorem ipsum",
         },
       ],

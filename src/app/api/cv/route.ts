@@ -1,6 +1,6 @@
 import { starterCvDocument } from "@/constants/cv";
 import { CvFactory } from "@/factories/cvFactory";
-import { randomUUID } from "crypto";
+import { uuid } from "@/utils/uuid";
 import { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   const newCvDocument = {
     metadata,
     sections: sections.map((section) => {
-      const id = randomUUID();
+      const id = uuid();
       switch (section.type) {
         case "header": {
           return {
@@ -31,12 +31,12 @@ export async function POST(request: NextRequest) {
         }
         case "standard": {
           const content = section.content.map((content) => {
-            const contentId = randomUUID();
+            const contentId = uuid();
             switch (content.type) {
               case "list": {
                 const items = content.items.map((item) => ({
                   ...item,
-                  id: randomUUID(),
+                  id: uuid(),
                 }));
                 return {
                   ...content,
