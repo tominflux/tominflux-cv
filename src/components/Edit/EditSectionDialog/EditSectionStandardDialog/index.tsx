@@ -5,6 +5,9 @@ import {
   EditContentOrderCapsule,
   EditContentOrderCapsuleProps,
 } from "../../EditContentOrderCapsule";
+import ConfirmationDialog, {
+  ConfirmationDialogProps,
+} from "@/components/UI/ConfirmationDialog";
 
 export interface EditSectionStandardDialogProps {
   isOpen: boolean;
@@ -18,6 +21,7 @@ export interface EditSectionStandardDialogProps {
   contentOrder: string[];
   onContentOrderChange: (contentOrder: string[]) => void;
   onConfirm: () => void;
+  deleteContentDialog?: ConfirmationDialogProps;
 }
 
 export function EditSectionStandardDialog({
@@ -29,31 +33,37 @@ export function EditSectionStandardDialog({
   contentOrder,
   onContentOrderChange,
   onConfirm,
+  deleteContentDialog,
 }: EditSectionStandardDialogProps) {
   return (
-    <EditDialog isOpen={isOpen} heading="Edit Section" onConfirm={onConfirm}>
-      <div className="flex flex-col gap-2 py-2 text-left">
-        <TextInput
-          label="Title"
-          value={headingInputValue}
-          onValueChange={onHeadingInputChange}
-          onValueApply={onHeadingInputApply}
-        />
-      </div>
-      <div className="flex flex-col gap-2 py-2 text-left">
-        <label htmlFor="url" className="block text-sm font-medium">
-          Content
-        </label>
-        <ArrangeableList
-          items={content.map(({ id, className, ...props }) => ({
-            id,
-            className,
-            content: <EditContentOrderCapsule {...props} />,
-          }))}
-          itemOrder={contentOrder}
-          onItemOrderChange={onContentOrderChange}
-        />
-      </div>
-    </EditDialog>
+    <>
+      <EditDialog isOpen={isOpen} heading="Edit Section" onConfirm={onConfirm}>
+        <div className="flex flex-col gap-2 py-2 text-left">
+          <TextInput
+            label="Title"
+            value={headingInputValue}
+            onValueChange={onHeadingInputChange}
+            onValueApply={onHeadingInputApply}
+          />
+        </div>
+        <div className="flex flex-col gap-2 py-2 text-left">
+          <label htmlFor="url" className="block text-sm font-medium">
+            Content
+          </label>
+          <ArrangeableList
+            items={content.map(({ id, className, ...props }) => ({
+              id,
+              className,
+              content: <EditContentOrderCapsule {...props} />,
+            }))}
+            itemOrder={contentOrder}
+            onItemOrderChange={onContentOrderChange}
+          />
+        </div>
+      </EditDialog>
+      {deleteContentDialog ? (
+        <ConfirmationDialog {...deleteContentDialog} />
+      ) : undefined}
+    </>
   );
 }

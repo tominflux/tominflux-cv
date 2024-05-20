@@ -1,9 +1,11 @@
 import { EditSectionStandardDialog } from "@/components/Edit/EditSectionDialog/EditSectionStandardDialog";
+import { ConfirmationDialogProps } from "@/components/UI/ConfirmationDialog";
 import { ListIcon } from "@/components/UI/Icons/ListIcon";
 import { QuestionMarkIcon } from "@/components/UI/Icons/QuestionMarkIcon";
 import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
 import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
+import { removeIdElement } from "@/utils/removeIdElement";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 export function EditSectionStandardDialogContainer() {
@@ -51,16 +53,20 @@ export function EditSectionStandardDialogContainer() {
     if (!section) return;
     setContentOrder(section.content.map((contentItem) => contentItem.id));
   }, [section]);
+  const [deletingContent, setDeletingContent] = useState<string | undefined>(
+    undefined
+  );
   const arrangeableListItems = useMemo(() => {
     if (!section) return [];
     return section.content.map((contentItem) => ({
       id: contentItem.id,
       icon: getContentCapsuleIcon(contentItem),
       label: getContentCapsuleLabel(contentItem),
-      onEdit: () => {
-        openContentDialog(contentItem.id);
+      onEdit: () => openContentDialog(contentItem.id),
+      onDelete: () => {
+        console.log("DELETE", { contentItem });
+        setDeletingContent(contentItem.id);
       },
-      onDelete: () => {},
     }));
   }, [openContentDialog, section]);
 
@@ -112,6 +118,25 @@ export function EditSectionStandardDialogContainer() {
     updateSection,
   ]);
 
+  const deleteContentDialog: ConfirmationDialogProps | undefined =
+    useMemo(() => {
+      if (!deletingContent) return undefined;
+      if (!section) return undefined;
+      return {
+        isOpen: true,
+        heading: "Delete Content",
+        subheading: "Are you sure you want to delete this Content?",
+        onCancel: () => setDeletingContent(undefined),
+        onConfirm: () => {
+          updateSection({
+            ...section,
+            content: removeIdElement(section.content, deletingContent),
+          });
+          setDeletingContent(undefined);
+        },
+      };
+    }, [deletingContent, section, updateSection]);
+
   if (!section) return <></>;
   return (
     <EditSectionStandardDialog
@@ -123,6 +148,7 @@ export function EditSectionStandardDialogContainer() {
       contentOrder={section.content.map((contentItem) => contentItem.id)}
       onContentOrderChange={onContentOrderChange}
       onConfirm={onConfirm}
+      deleteContentDialog={deleteContentDialog}
     />
   );
 }
