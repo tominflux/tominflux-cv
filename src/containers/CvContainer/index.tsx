@@ -7,6 +7,8 @@ import { useCvFetcher } from "@/hooks/useCvFetcher";
 import { useCvUpdater } from "@/hooks/useCvUpdater";
 import { EditSectionDialogContainer } from "../Edit/EditSectionDialogContainer";
 import { EditContentDialogContainer } from "../Edit/EditContentDialogContainer";
+import { AddSectionDialogContainer } from "../Edit/AddSectionDialogContainer";
+import { AddSectionButtonContainer } from "../Edit/AddSectionButtonContainer";
 
 export interface CvContainerProps {}
 
@@ -24,8 +26,10 @@ export function CvContainer({}: CvContainerProps) {
               <CvSectionContainer key={sectionProps.id} {...sectionProps} />
             ))
           : undefined}
+        <AddSectionButtonContainer />
       </CvLayout>
       <EditSectionDialogContainer />
+      <AddSectionDialogContainer />
       <EditContentDialogContainer />
     </>
   );

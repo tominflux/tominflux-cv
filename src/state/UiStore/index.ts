@@ -5,6 +5,9 @@ export type UiState = {
   editSectionDialog: string | undefined;
   openSectionDialog: (id: string) => void;
   closeSectionDialog: () => void;
+  isAddSectionDialogOpen: boolean;
+  openAddSectionDialog: () => void;
+  closeAddSectionDialog: () => void;
   editContentDialog: string | undefined;
   openContentDialog: (id: string) => void;
   closeContentDialog: () => void;
@@ -17,23 +20,24 @@ export const useUiStore = create<UiState>()(
         editSectionDialog: undefined,
         editContentDialog: undefined,
         openSectionDialog: (id: string) =>
-          set((state) => ({
-            ...state,
+          set(() => ({
             editSectionDialog: id,
           })),
         closeSectionDialog: () =>
-          set((state) => ({
-            ...state,
+          set(() => ({
             editSectionDialog: undefined,
           })),
+        isAddSectionDialogOpen: false,
+        openAddSectionDialog: () =>
+          set(() => ({ isAddSectionDialogOpen: true })),
+        closeAddSectionDialog: () =>
+          set(() => ({ isAddSectionDialogOpen: false })),
         openContentDialog: (id: string) =>
-          set((state) => ({
-            ...state,
+          set(() => ({
             editContentDialog: id,
           })),
         closeContentDialog: () =>
-          set((state) => ({
-            ...state,
+          set(() => ({
             editContentDialog: undefined,
           })),
       }),
