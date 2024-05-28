@@ -7,13 +7,11 @@ export interface AddSectionButtonProps {
 
 export function AddSectionButton({ onClick }: AddSectionButtonProps) {
   return (
-    <div className="py-4 w-full flex flex-row  justify-center ">
-      <Button onClick={onClick}>
-        <div className="flex flow-row gap-2 items-center">
-          <PlusCircleIcon />
-          <span>Add Section</span>
-        </div>
-      </Button>
-    </div>
+    <Button onClick={onClick}>
+      <div className="flex flow-row gap-2 items-center">
+        <PlusCircleIcon />
+        <span>Add Section</span>
+      </div>
+    </Button>
   );
 }

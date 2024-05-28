@@ -66,10 +66,7 @@ export function EditSectionStandardDialogContainer() {
       icon: getContentCapsuleIcon(contentItem),
       label: getContentCapsuleLabel(contentItem),
       onEdit: () => openContentDialog(contentItem.id),
-      onDelete: () => {
-        console.log("DELETE", { contentItem });
-        setDeletingContent(contentItem.id);
-      },
+      onDelete: () => setDeletingContent(contentItem.id),
     }));
   }, [openContentDialog, section]);
 

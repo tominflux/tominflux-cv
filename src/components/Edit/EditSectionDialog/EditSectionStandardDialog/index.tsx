@@ -4,7 +4,7 @@ import { TextInput } from "@/components/UI/TextInput";
 import {
   EditContentOrderCapsule,
   EditContentOrderCapsuleProps,
-} from "../../EditContentOrderCapsule";
+} from "../EditContentOrderCapsule";
 import ConfirmationDialog, {
   ConfirmationDialogProps,
 } from "@/components/UI/ConfirmationDialog";
@@ -57,9 +57,7 @@ export function EditSectionStandardDialog({
           />
         </div>
         <div className="flex flex-col gap-2 py-2 text-left">
-          <label htmlFor="url" className="block text-sm font-medium">
-            Content
-          </label>
+          <label className="block text-sm font-medium">Content</label>
           <ArrangeableList
             items={content.map(({ id, className, ...props }) => ({
               id,

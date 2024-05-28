@@ -11,6 +11,7 @@ export type CvState = {
   loadCv: (cv: CvDocument) => void;
   addSection: (section: CvDocumentSection) => void;
   updateSection: (section: CvDocumentSection) => void;
+  updateSectionsOrder: (sectionsOrder: string[]) => void;
   deleteSection: (sectionId: string) => void;
   updateContent: (sectionId: string, content: CvDocumentContent) => void;
 };
@@ -46,13 +47,30 @@ export const useCvStore = create<CvState>()(
               cv: nextCv,
             };
           }),
+        updateSectionsOrder: (sectionsOrder) =>
+          set((state) => {
+            if (!state.cv) return {};
+            const { cv } = state;
+            const { sections } = cv;
+            const nextSections = sectionsOrder.map(
+              (id) =>
+                sections.find(
+                  (section) => section.id === id
+                ) as CvDocumentSection
+            );
+            const nextCv = { ...cv, sections: nextSections };
+            return {
+              cv: nextCv,
+            };
+          }),
         deleteSection: (sectionId) =>
           set((state) => {
             if (!state.cv) return {};
             const { cv } = state;
             const { sections } = cv;
             const nextSections = removeIdElement(sections, sectionId);
-            const nextCv = { ...cv, section: nextSections };
+            console.log("DEBUG", { sectionId, sections, nextSections });
+            const nextCv = { ...cv, sections: nextSections };
             return {
               cv: nextCv,
             };

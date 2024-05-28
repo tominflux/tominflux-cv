@@ -1,35 +1,42 @@
 "use client";
 
 import { CvLayout } from "@/components/CvLayout";
-import { CvSectionContainer } from "../CvSectionContainer";
-import { useCvStore } from "@/state/CvStore";
 import { useCvFetcher } from "@/hooks/useCvFetcher";
 import { useCvUpdater } from "@/hooks/useCvUpdater";
-import { EditSectionDialogContainer } from "../Edit/EditSectionDialogContainer";
-import { EditContentDialogContainer } from "../Edit/EditContentDialogContainer";
+import { useCvStore } from "@/state/CvStore";
+import { useUiStore } from "@/state/UiStore";
+import { CvSectionContainer } from "../CvSectionContainer";
 import { AddSectionDialogContainer } from "../Edit/AddSectionDialogContainer";
-import { AddSectionButtonContainer } from "../Edit/AddSectionButtonContainer";
+import { EditContentDialogContainer } from "../Edit/EditContentDialogContainer";
+import { EditLayoutDialogContainer } from "../Edit/EditLayoutDialogContainer";
+import { EditSectionDialogContainer } from "../Edit/EditSectionDialogContainer";
+import { DeleteSectionDialogContainer } from "../Edit/DeleteSectionDialogContainer";
 
 export interface CvContainerProps {}
 
 export function CvContainer({}: CvContainerProps) {
   const { cv } = useCvStore();
+  const { openAddSectionDialog, openEditLayoutDialog } = useUiStore();
 
   useCvFetcher();
   useCvUpdater();
 
   return (
     <>
-      <CvLayout>
+      <CvLayout
+        onEditLayout={() => openEditLayoutDialog()}
+        onAddSection={() => openAddSectionDialog()}
+      >
         {cv
           ? cv.sections.map((sectionProps) => (
               <CvSectionContainer key={sectionProps.id} {...sectionProps} />
             ))
           : undefined}
-        <AddSectionButtonContainer />
       </CvLayout>
+      <EditLayoutDialogContainer />
       <EditSectionDialogContainer />
       <AddSectionDialogContainer />
+      <DeleteSectionDialogContainer />
       <EditContentDialogContainer />
     </>
   );
