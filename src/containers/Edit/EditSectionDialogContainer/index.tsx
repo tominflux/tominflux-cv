@@ -2,6 +2,7 @@ import { useCvStore } from "@/state/CvStore";
 import { useMemo } from "react";
 import { EditSectionStandardDialogContainer } from "./EditSectionStandardDialogContainer";
 import { useUiStore } from "@/state/UiStore";
+import { EditSectionHeaderDialogContainer } from "./EditSectionHeaderDialogContainer";
 
 export function EditSectionDialogContainer() {
   const { cv } = useCvStore();
@@ -17,6 +18,8 @@ export function EditSectionDialogContainer() {
 
   if (!section) return <></>;
   switch (section.type) {
+    case "header":
+      return <EditSectionHeaderDialogContainer />;
     case "standard":
       return <EditSectionStandardDialogContainer />;
     default:

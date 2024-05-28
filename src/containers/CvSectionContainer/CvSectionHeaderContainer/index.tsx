@@ -5,6 +5,7 @@ import {
   CvSectionHeaderEditData,
 } from "@/components/CvSection/CvSectionHeader";
 import { useCvStore } from "@/state/CvStore";
+import { useUiStore } from "@/state/UiStore";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 
 export type CvSectionHeaderContainerProps = CvDocumentSectionHeader;
@@ -15,17 +16,10 @@ export function CvSectionHeaderContainer({
   email,
   phone,
   address,
+  link1,
+  link2,
 }: CvSectionHeaderContainerProps) {
-  const { updateSection } = useCvStore();
-
-  const onUpdate = (data: CvSectionHeaderEditData) => {
-    const section: CvDocumentSectionHeader = {
-      ...data,
-      id,
-      type: "header",
-    };
-    updateSection(section);
-  };
+  const { openSectionDialog } = useUiStore();
 
   return (
     <CvSectionHeader
@@ -34,7 +28,9 @@ export function CvSectionHeaderContainer({
       email={email}
       phone={phone}
       address={address}
-      onUpdate={onUpdate}
+      link1={link1}
+      link2={link2}
+      onEditButtonClick={() => openSectionDialog(id)}
     />
   );
 }

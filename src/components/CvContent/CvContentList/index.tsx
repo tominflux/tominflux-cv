@@ -8,6 +8,7 @@ export interface CvContentListProps {
     id: string;
     value: ReactNode;
   }[];
+  padding?: boolean;
 }
 
 export function CvContentList({

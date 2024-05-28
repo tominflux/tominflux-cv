@@ -4,12 +4,16 @@ import { EditDialogOverlay } from "@/components/UI/EditDialogOverlay";
 import { TextInput } from "@/components/UI/TextInput";
 import { useState } from "react";
 import { CvContentList } from "../../CvContent/CvContentList";
+import { isNotUndefined } from "@/utils/typePredicates";
+import { EditOverlay } from "@/components/Edit/EditOverlay";
 
 export interface CvSectionHeaderEditData {
   name: string;
   email: string;
   phone: string;
   address: string;
+  link1?: string;
+  link2?: string;
 }
 export interface CvSectionHeaderProps {
   id: string;
@@ -17,7 +21,9 @@ export interface CvSectionHeaderProps {
   email: string;
   phone: string;
   address: string;
-  onUpdate?: (data: CvSectionHeaderEditData) => void;
+  link1?: string;
+  link2?: string;
+  onEditButtonClick: () => void;
 }
 
 export function CvSectionHeader({
@@ -26,69 +32,31 @@ export function CvSectionHeader({
   email,
   phone,
   address,
-  onUpdate,
+  link1,
+  link2,
+  onEditButtonClick,
 }: CvSectionHeaderProps) {
-  const [editedName, setEditedName] = useState<string | undefined>(undefined);
-  const [editedEmail, setEditedEmail] = useState<string | undefined>(undefined);
-  const [editedPhone, setEditedPhone] = useState<string | undefined>(undefined);
-  const [editedAddress, setEditedAddress] = useState<string | undefined>(
-    undefined
-  );
-
-  const editedData: CvSectionHeaderEditData = {
-    name: editedName ?? name,
-    email: editedEmail ?? email,
-    phone: editedPhone ?? phone,
-    address: editedAddress ?? address,
-  };
-
   return (
-    <EditDialogOverlay
-      className={`grid grid-cols-2 gap-4 w-full py-3`}
-      dialogHeading="Edit Header"
-      dialogContent={
-        <>
-          <div className="flex flex-col gap-2 py-2 text-left">
-            <TextInput
-              label="Title"
-              value={editedName ?? name}
-              onValueChange={(value) => setEditedName(value)}
-            />
-          </div>
-          <div className="flex flex-col gap-2 py-2 text-left">
-            <TextInput
-              label="Email"
-              value={editedEmail ?? email}
-              onValueChange={(value) => setEditedEmail(value)}
-            />
-            <TextInput
-              label="Phone"
-              value={editedPhone ?? phone}
-              onValueChange={(value) => setEditedPhone(value)}
-            />
-            <TextInput
-              label="Address"
-              value={editedAddress ?? address}
-              onValueChange={(value) => setEditedAddress(value)}
-            />
-          </div>
-        </>
-      }
-      onDialogConfirm={onUpdate ? () => onUpdate(editedData) : undefined}
+    <EditOverlay
+      className={`grid grid-cols-3 gap-4 w-full py-3 `}
+      onEditButtonClick={onEditButtonClick}
     >
+      <div className="mt-1 mb-2">
+        <ul className="list-none">
+          {link1 ? <li>{link1}</li> : undefined}
+          {link2 ? <li>{link2}</li> : undefined}
+        </ul>
+      </div>
       <div>
         <h1 className="text-3xl">{name}</h1>
       </div>
-      <div className="text-right">
-        <CvContentList
-          listType="list-none"
-          items={[
-            { id: "email", value: email },
-            { id: "phone", value: phone },
-            { id: "address", value: address },
-          ]}
-        />
+      <div className="mt-1 mb-2 text-right">
+        <ul className="list-none">
+          {email ? <li>{email}</li> : undefined}
+          {phone ? <li>{phone}</li> : undefined}
+          {address ? <li>{address}</li> : undefined}
+        </ul>
       </div>
-    </EditDialogOverlay>
+    </EditOverlay>
   );
 }

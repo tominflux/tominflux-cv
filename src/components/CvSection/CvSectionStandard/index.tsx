@@ -1,7 +1,5 @@
 import { EditOverlay } from "@/components/Edit/EditOverlay";
-import { EditDialogOverlay } from "@/components/UI/EditDialogOverlay";
-import { TextInput } from "@/components/UI/TextInput";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 export interface CvSectionStandardEditData {
   heading: string;

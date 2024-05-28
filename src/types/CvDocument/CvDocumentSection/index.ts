@@ -9,6 +9,8 @@ export const cvDocumentSectionHeaderSchema = z.object({
   email: z.string(),
   phone: z.string(),
   address: z.string(),
+  link1: z.string().optional(),
+  link2: z.string().optional(),
 });
 export type CvDocumentSectionHeaderSchema =
   typeof cvDocumentSectionHeaderSchema;
