@@ -6,6 +6,12 @@
 
 Primarily this project is serving as an open portfolio piece to demonstrate my programming and engineering skills, whilst also being a handy tool for writing up and rendering my CV/resume.
 
+## Get Started
+
+- Install dependencies with `yarn install`
+- Run `mongodb` docker container and configure `MONGO_URI` in `.env.local` (see `.env.local.example`)
+- Start `NextJS` development server with `yarn dev`
+
 ## Core Tech Stack
 
 The fundamental libraries/frameworks/languages in use are the following:
