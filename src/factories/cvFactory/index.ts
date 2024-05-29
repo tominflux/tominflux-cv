@@ -1,6 +1,6 @@
 import { getMongoCollection } from "@/lib/mongodb";
 import { CvDocument } from "@/types/CvDocument";
-import { MongoDocument } from "@/types/Factory/FactoryDocument";
+import { MongoDocument } from "@/types/Factory";
 import { ObjectId } from "mongodb";
 
 async function cvFactoryCreate(data: Omit<CvDocument, "id">) {
@@ -30,7 +30,9 @@ async function cvFactoryRead(query: Partial<CvDocument>) {
     ...remainingQuery,
   };
 
-  const readResult = await cvCollection.find(mongoFilter);
+  const readResult = await cvCollection.find<MongoDocument<CvDocument>>(
+    mongoFilter
+  );
   const readResultData = await readResult.toArray();
 
   const cvDocuments = readResultData.map(({ _id, ...readResultDocument }) => ({
@@ -72,8 +74,26 @@ async function cvFactoryUpdate(
   };
 }
 
+async function cvFactoryDelete(query: Partial<CvDocument>) {
+  const cvCollection = await getMongoCollection("cv");
+
+  const { id, ...remainingQuery } = query;
+  const mongoFilter = {
+    _id: id ? new ObjectId(id) : undefined,
+    ...remainingQuery,
+  };
+
+  const result = await cvCollection.deleteMany(mongoFilter);
+
+  return {
+    status: "success",
+    data: result.deletedCount,
+  };
+}
+
 export const CvFactory = {
   create: cvFactoryCreate,
   read: cvFactoryRead,
   update: cvFactoryUpdate,
+  delete: cvFactoryDelete,
 };

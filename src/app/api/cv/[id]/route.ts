@@ -1,99 +1,51 @@
-import { CvFactory } from "@/factories/cvFactory";
+import { CvService } from "@/services/CvService";
+import { emptySchema, mongoIdQuerySchema } from "@/types/API";
 import { cvDocumentSchema } from "@/types/CvDocument";
-import { type NextRequest } from "next/server";
-import { z } from "zod";
+import { endpoint } from "@/utils/request/endpoint";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: unknown }
-) {
-  const paramsParseResult = z
-    .object({
-      id: z.string().regex(/^[0-9a-f]{24}$/),
-    })
-    .safeParse(params);
-  if (!paramsParseResult.success) {
-    return Response.json(
-      {
-        payload: undefined,
-        message: "Invalid params",
-      },
-      { status: 400 }
-    );
-  }
-  const { id } = paramsParseResult.data;
-
-  const readResult = await CvFactory.read({ id });
-
-  const payload = readResult.data.at(0);
-  if (!payload) {
-    return Response.json(
-      {
+export const GET = endpoint({
+  handler: async ({ id }) => {
+    const result = await CvService.read({ id });
+    const payload = result.data.at(0);
+    if (!payload) {
+      return {
+        success: false,
         payload,
-        message: "Not found",
-      },
-      { status: 404 }
-    );
-  }
+        message: "CV not found",
+        status: 404,
+      };
+    }
+    return { success: true, payload, message: "CV found" };
+  },
+  querySchema: mongoIdQuerySchema,
+  bodySchema: emptySchema,
+  payloadSchema: cvDocumentSchema,
+});
 
-  return Response.json({
-    payload,
-    message: `Found [${readResult.data.length}] CV Documents`,
-  });
-}
+export const PUT = endpoint({
+  handler: async ({ id }, body) => {
+    const cvDocument = {
+      ...body,
+      id,
+    };
+    const updateResult = await CvService.update(cvDocument);
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: unknown }
-) {
-  const paramsParseResult = z
-    .object({
-      id: z.string().regex(/^[0-9a-f]{24}$/),
-    })
-    .safeParse(params);
-  if (!paramsParseResult.success) {
-    return Response.json(
-      {
+    if (updateResult.status === "not-found") {
+      return {
+        success: false,
         payload: undefined,
-        message: "Invalid params",
-      },
-      { status: 400 }
-    );
-  }
-  const { id } = paramsParseResult.data;
+        message: "CV not found",
+        status: 404,
+      };
+    }
 
-  const requestBody = await request.json();
-  const documentParseResult = cvDocumentSchema.safeParse(requestBody);
-  if (!documentParseResult.success) {
-    console.error(documentParseResult.error.toString());
-    return Response.json(
-      {
-        payload: undefined,
-        message: "Invalid body",
-      },
-      { status: 400 }
-    );
-  }
-  const cvFactoryDocumentData = documentParseResult.data;
-
-  const cvFactoryUpdateDocument = {
-    ...cvFactoryDocumentData,
-    id,
-  };
-
-  const updateResult = await CvFactory.update(cvFactoryUpdateDocument);
-  if (updateResult.status === "not-found") {
-    return Response.json(
-      {
-        payload: undefined,
-        message: "CV Document not found",
-      },
-      { status: 404 }
-    );
-  }
-
-  return Response.json({
-    payload: updateResult.data,
-    message: "Updated CV Document",
-  });
-}
+    return {
+      success: true,
+      payload: updateResult.data,
+      message: "CV updated",
+    };
+  },
+  querySchema: mongoIdQuerySchema,
+  bodySchema: cvDocumentSchema,
+  payloadSchema: cvDocumentSchema,
+});
