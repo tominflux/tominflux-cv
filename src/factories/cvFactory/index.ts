@@ -1,6 +1,8 @@
 import { getMongoCollection } from "@/lib/mongodb";
 import { CvDocument } from "@/types/CvDocument";
 import { MongoDocument } from "@/types/Factory";
+import { getFactoryDocuments } from "@/utils/mongodb/getFactoryDocuments";
+import { getMongoFilter } from "@/utils/mongodb/getMongoFilter";
 import { ObjectId } from "mongodb";
 
 async function cvFactoryCreate(data: Omit<CvDocument, "id">) {
@@ -24,21 +26,11 @@ async function cvFactoryCreate(data: Omit<CvDocument, "id">) {
 async function cvFactoryRead(query: Partial<CvDocument>) {
   const cvCollection = await getMongoCollection("cv");
 
-  const { id, ...remainingQuery } = query;
-  const mongoFilter = {
-    _id: id ? new ObjectId(id) : undefined,
-    ...remainingQuery,
-  };
-
+  const mongoFilter = getMongoFilter(query);
   const readResult = await cvCollection.find<MongoDocument<CvDocument>>(
     mongoFilter
   );
-  const readResultData = await readResult.toArray();
-
-  const cvDocuments = readResultData.map(({ _id, ...readResultDocument }) => ({
-    id: _id.toString(),
-    ...readResultDocument,
-  }));
+  const cvDocuments = getFactoryDocuments(await readResult.toArray());
 
   return {
     status: "success",
