@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export function useCvFetcher() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
 
   const { data, error, isLoading } = useSWR<{
     payload: CvDocument;
@@ -16,11 +16,13 @@ export function useCvFetcher() {
 
   const { loadCv } = useCvStore();
 
-  const [didLoadCv, setDidLoadCv] = useState<boolean>(false);
+  const [loadedCv, setLoadedCv] = useState<string | undefined>(undefined);
+  const didLoadCv = loadedCv === id;
+
   useEffect(() => {
     if (didLoadCv) return;
     if (!fetchedCv) return;
-    setDidLoadCv(true);
+    setLoadedCv(id);
     loadCv(fetchedCv);
-  }, [didLoadCv, fetchedCv, loadCv]);
+  }, [didLoadCv, fetchedCv, id, loadCv]);
 }

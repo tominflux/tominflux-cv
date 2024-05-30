@@ -50,8 +50,6 @@ export function EditSectionHeaderDialogContainer() {
     [section, updateSection]
   );
 
-  console.log("DEBUG", { section });
-
   if (!section) return <></>;
   return (
     <EditSectionHeaderDialog

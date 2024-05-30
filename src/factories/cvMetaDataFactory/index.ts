@@ -10,18 +10,19 @@ async function cvMetaDataFactoryRead(query: Partial<CvDocument>) {
   const cvCollection = await getMongoCollection("cv");
 
   const mongoFilter = getMongoFilter(query);
+  const pipeline = [
+    {
+      $match: { ...mongoFilter },
+    },
+    {
+      $project: {
+        _id: true,
+        metadata: true,
+      },
+    },
+  ];
   const mongoDocuments = await cvCollection
-    .aggregate<MongoDocument<CvMetaDataDocument>>([
-      {
-        $match: { ...mongoFilter },
-      },
-      {
-        $project: {
-          _id: true,
-          metadata: true,
-        },
-      },
-    ])
+    .aggregate<MongoDocument<CvMetaDataDocument>>(pipeline)
     .toArray();
   const documents = getFactoryDocuments(mongoDocuments);
 

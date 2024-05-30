@@ -16,7 +16,7 @@ export const Capsule = forwardRef(
       <div
         ref={ref}
         className={clsx(
-          "border border-solid border-black rounded-md px-2 py-1 cursor-move select-none",
+          "border border-solid border-black rounded-md px-2 py-1 cursor-move select-none dark:bg-gray-50 dark:text-gray-800",
           className
         )}
         onMouseDown={onMouseDown}

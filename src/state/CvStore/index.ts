@@ -1,5 +1,6 @@
 import { CvDocument } from "@/types/CvDocument";
 import { CvDocumentContent } from "@/types/CvDocument/CvDocumentContent";
+import { CvDocumentMetaData } from "@/types/CvDocument/CvDocumentMetaData";
 import { CvDocumentSection } from "@/types/CvDocument/CvDocumentSection";
 import { removeIdElement } from "@/utils/removeIdElement";
 import { replaceIdElement } from "@/utils/replaceIdElement";
@@ -9,6 +10,7 @@ import { devtools, persist } from "zustand/middleware";
 export type CvState = {
   cv: CvDocument | undefined;
   loadCv: (cv: CvDocument) => void;
+  updateMetaData: (metadata: CvDocumentMetaData) => void;
   addSection: (section: CvDocumentSection) => void;
   updateSection: (section: CvDocumentSection) => void;
   updateSectionsOrder: (sectionsOrder: string[]) => void;
@@ -22,6 +24,18 @@ export const useCvStore = create<CvState>()(
       (set) => ({
         cv: undefined,
         loadCv: (cv) => set(() => ({ cv })),
+        updateMetaData: (metadata) =>
+          set((state) => {
+            if (!state.cv) return {};
+            const { cv } = state;
+            const nextCv = {
+              ...cv,
+              metadata,
+            };
+            return {
+              cv: nextCv,
+            };
+          }),
         addSection: (section) =>
           set((state) => {
             if (!state.cv) return {};
