@@ -1,3 +1,4 @@
+import { getTruncatedString } from "@/utils/getTruncateString";
 import { ButtonLight } from "../UI/ButtonLight";
 import { Capsule } from "../UI/Capsule";
 import { H2 } from "../UI/H2";
@@ -24,7 +25,7 @@ export function CvThumbnail({
       <div className="flex flex-row gap-6 items-center px-2 py-1">
         <div className="flex flex-row gap-2">
           <DocumentTextIcon />
-          <H2>{name}</H2>
+          <H2 className="min-w-52">{getTruncatedString(name, 18)}</H2>
         </div>
         <div className="flex flex-row gap-3 justify-end">
           <ButtonLight onClick={onEditClick}>

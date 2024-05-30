@@ -1,5 +1,6 @@
 import { CvThumbnail } from "@/components/CvThumbnail";
 import { useCvMetaDataStore } from "@/state/CvMetaDataStore";
+import { getTruncatedString } from "@/utils/getTruncateString";
 import { useRouter } from "next/navigation";
 
 export interface CvThumbnailContainerProps {

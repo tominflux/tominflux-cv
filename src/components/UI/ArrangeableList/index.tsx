@@ -140,9 +140,10 @@ export function ArrangeableList({
                 },
               ];
             }}
-            className={
+            className={clsx(
+              "cursor-move",
               selectedCapsule === item.id ? "opacity-0" : item.className
-            }
+            )}
             onMouseDown={(event) => {
               const element = capsuleRefs.current.find(
                 (capsuleRef) => capsuleRef.id === item.id
