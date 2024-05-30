@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 export type UiState = {
-  editMetaDataDialog: string | undefined;
-  openEditMetaDataDialog: (id: string) => void;
+  isEditMetaDataDialogOpen: boolean;
+  openEditMetaDataDialog: () => void;
   closeEditMetaDataDialog: () => void;
   isEditLayoutDialogOpen: boolean;
   openEditLayoutDialog: () => void;
@@ -26,10 +26,11 @@ export const useUiStore = create<UiState>()(
   devtools(
     persist(
       (set) => ({
-        editMetaDataDialog: undefined,
-        openEditMetaDataDialog: (id) => set(() => ({ editMetaDataDialog: id })),
+        isEditMetaDataDialogOpen: false,
+        openEditMetaDataDialog: () =>
+          set(() => ({ isEditMetaDataDialogOpen: true })),
         closeEditMetaDataDialog: () =>
-          set(() => ({ editMetaDataDialog: undefined })),
+          set(() => ({ isEditMetaDataDialogOpen: false })),
         isEditLayoutDialogOpen: false,
         openEditLayoutDialog: () =>
           set(() => ({ isEditLayoutDialogOpen: true })),

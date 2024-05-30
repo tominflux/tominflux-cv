@@ -44,7 +44,7 @@ export function EditLayoutDialog({
           onItemOrderChange={onSectionsOrderChange}
         />
         <ButtonLight onClick={onAddSection ? () => onAddSection() : undefined}>
-          <div className="flex flow-row gap-2 items-center justify-center">
+          <div className="flex flex-row gap-2 items-center justify-center">
             <PlusCircleIcon />
             <span>Add Section</span>
           </div>

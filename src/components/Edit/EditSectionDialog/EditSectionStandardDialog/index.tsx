@@ -70,7 +70,7 @@ export function EditSectionStandardDialog({
           <ButtonLight
             onClick={onAddContent ? () => onAddContent() : undefined}
           >
-            <div className="flex flow-row gap-2 items-center justify-center">
+            <div className="flex flex-row gap-2 items-center justify-center">
               <PlusCircleIcon />
               <span>Add Content</span>
             </div>

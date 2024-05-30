@@ -7,9 +7,9 @@ export interface EditLayoutButtonProps {
 
 export function EditLayoutButton({ onClick }: EditLayoutButtonProps) {
   return (
-    <div className="flex flow-row gap-2 items-center">
+    <div className="flex flex-row gap-2 items-center">
       <Button onClick={onClick}>
-        <div className="flex flow-row gap-2 items-center">
+        <div className="flex flex-row gap-2 items-center">
           <EditIcon />
           <span>Edit Layout</span>
         </div>

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { ZodObject, ZodSchema } from "zod";
+import { ZodSchema } from "zod";
 
 export interface ParseRequestParams<Q, B> {
   request: NextRequest;
@@ -33,6 +33,7 @@ export async function parseRequest<Q, B>({
   };
   const queryParseResult = querySchema.safeParse(unparsedQuery);
   if (!queryParseResult.success) {
+    console.error("Invalid Query");
     console.error(queryParseResult.error.toString());
     return {
       status: "invalid-query",
@@ -40,9 +41,11 @@ export async function parseRequest<Q, B>({
   }
   const query = queryParseResult.data;
 
-  const unparsedBody = request.bodyUsed ? await request.json() : {};
+  const hasJson = request.headers.get("Content-Type") === "application/json";
+  const unparsedBody = hasJson ? await request.json() : {};
   const bodyParseResult = bodySchema.safeParse(unparsedBody);
   if (!bodyParseResult.success) {
+    console.error("Invalid Body");
     console.error(bodyParseResult.error.toString());
     return {
       status: "invalid-body",

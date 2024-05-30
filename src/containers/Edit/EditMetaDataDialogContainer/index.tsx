@@ -5,7 +5,7 @@ import { useCallback, useState } from "react";
 
 export function EditMetaDataDialogContainer() {
   const { cv, updateMetaData } = useCvStore();
-  const { editMetaDataDialog, closeEditMetaDataDialog } = useUiStore();
+  const { isEditMetaDataDialogOpen, closeEditMetaDataDialog } = useUiStore();
 
   const metadata = cv?.metadata;
 
@@ -24,9 +24,11 @@ export function EditMetaDataDialogContainer() {
     [metadata, updateMetaData]
   );
 
+  console.log("DEBUG", { isEditMetaDataDialogOpen });
+
   return (
     <EditMetaDataDialog
-      isOpen={editMetaDataDialog !== undefined}
+      isOpen={isEditMetaDataDialogOpen}
       nameInputValue={editNameValue}
       onNameInputChange={(value) => setEditNameValue(value)}
       onNameInputApply={(value) => onApplyValue("name", value)}

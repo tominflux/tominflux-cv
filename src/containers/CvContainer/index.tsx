@@ -11,6 +11,7 @@ import { EditContentDialogContainer } from "../Edit/EditContentDialogContainer";
 import { EditLayoutDialogContainer } from "../Edit/EditLayoutDialogContainer";
 import { EditSectionDialogContainer } from "../Edit/EditSectionDialogContainer";
 import { DeleteSectionDialogContainer } from "../Edit/DeleteSectionDialogContainer";
+import { EditMetaDataDialogContainer } from "../Edit/EditMetaDataDialogContainer";
 
 export interface CvContainerProps {}
 
@@ -33,6 +34,7 @@ export function CvContainer({}: CvContainerProps) {
             ))
           : undefined}
       </CvLayout>
+      <EditMetaDataDialogContainer />
       <EditLayoutDialogContainer />
       <EditSectionDialogContainer />
       <AddSectionDialogContainer />

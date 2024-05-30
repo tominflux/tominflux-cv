@@ -8,7 +8,7 @@ export interface AddSectionButtonProps {
 export function AddSectionButton({ onClick }: AddSectionButtonProps) {
   return (
     <Button onClick={onClick}>
-      <div className="flex flow-row gap-2 items-center">
+      <div className="flex flex-row gap-2 items-center">
         <PlusCircleIcon />
         <span>Add Section</span>
       </div>

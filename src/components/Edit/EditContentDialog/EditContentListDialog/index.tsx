@@ -72,7 +72,7 @@ export function EditContentListDialog({
             onItemOrderChange={onItemOrderChange}
           />
           <ButtonLight onClick={onAddItem ? () => onAddItem() : undefined}>
-            <div className="flex flow-row gap-2 items-center justify-center">
+            <div className="flex flex-row gap-2 items-center justify-center">
               <PlusCircleIcon />
               <span>Add Item</span>
             </div>
