@@ -2,6 +2,7 @@ import { CvService } from "@/services/CvService";
 import { emptySchema, mongoIdQuerySchema } from "@/types/API";
 import { cvDocumentSchema } from "@/types/CvDocument";
 import { endpoint } from "@/utils/request/endpoint";
+import { z } from "zod";
 
 export const GET = endpoint({
   handler: async ({ id }) => {
@@ -48,4 +49,20 @@ export const PUT = endpoint({
   querySchema: mongoIdQuerySchema,
   bodySchema: cvDocumentSchema,
   payloadSchema: cvDocumentSchema,
+});
+
+export const DELETE = endpoint({
+  handler: async ({ id }) => {
+    const deleteResult = await CvService.delete({ id });
+    const deletedCount = deleteResult.data;
+    return {
+      success: true,
+      payload: deletedCount,
+      message: `[${deletedCount}] CV Documents deleted`,
+      status: 200,
+    };
+  },
+  querySchema: mongoIdQuerySchema,
+  bodySchema: emptySchema,
+  payloadSchema: z.number(),
 });

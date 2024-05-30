@@ -2,6 +2,9 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 export type UiState = {
+  deleteCvDialog: string | undefined;
+  openDeleteCvDialog: (id: string) => void;
+  closeDeleteCvDialog: () => void;
   isEditMetaDataDialogOpen: boolean;
   openEditMetaDataDialog: () => void;
   closeEditMetaDataDialog: () => void;
@@ -26,6 +29,9 @@ export const useUiStore = create<UiState>()(
   devtools(
     persist(
       (set) => ({
+        deleteCvDialog: undefined,
+        openDeleteCvDialog: (id) => set(() => ({ deleteCvDialog: id })),
+        closeDeleteCvDialog: () => set(() => ({ deleteCvDialog: undefined })),
         isEditMetaDataDialogOpen: false,
         openEditMetaDataDialog: () =>
           set(() => ({ isEditMetaDataDialogOpen: true })),
@@ -38,7 +44,7 @@ export const useUiStore = create<UiState>()(
           set(() => ({ isEditLayoutDialogOpen: false })),
         editSectionDialog: undefined,
         editContentDialog: undefined,
-        openSectionDialog: (id: string) =>
+        openSectionDialog: (id) =>
           set(() => ({
             editSectionDialog: id,
           })),
@@ -52,11 +58,11 @@ export const useUiStore = create<UiState>()(
         closeAddSectionDialog: () =>
           set(() => ({ isAddSectionDialogOpen: false })),
         deleteSectionDialog: undefined,
-        openDeleteSectionDialog: (id: string) =>
+        openDeleteSectionDialog: (id) =>
           set(() => ({ deleteSectionDialog: id })),
         closeDeleteSectionDialog: () =>
           set(() => ({ deleteSectionDialog: undefined })),
-        openContentDialog: (id: string) =>
+        openContentDialog: (id) =>
           set(() => ({
             editContentDialog: id,
           })),

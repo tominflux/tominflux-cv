@@ -1,6 +1,6 @@
 import { CvThumbnail } from "@/components/CvThumbnail";
 import { useCvMetaDataStore } from "@/state/CvMetaDataStore";
-import { getTruncatedString } from "@/utils/getTruncateString";
+import { useUiStore } from "@/state/UiStore";
 import { useRouter } from "next/navigation";
 
 export interface CvThumbnailContainerProps {
@@ -9,6 +9,7 @@ export interface CvThumbnailContainerProps {
 
 export function CvThumbnailContainer({ id }: CvThumbnailContainerProps) {
   const { cvMetaDatas } = useCvMetaDataStore();
+  const { openDeleteCvDialog } = useUiStore();
   const router = useRouter();
 
   const cvMetaData = cvMetaDatas.find((cvMetaData) => cvMetaData.id === id);
@@ -17,9 +18,9 @@ export function CvThumbnailContainer({ id }: CvThumbnailContainerProps) {
   return (
     <CvThumbnail
       name={cvMetaData.metadata.name}
-      onEditClick={() => {}}
-      onEnterClick={() => router.push(`/cv/${id}`)}
-      onDeleteClick={() => {}}
+      onPreviewClick={() => {}}
+      onEditClick={() => router.push(`/cv/${id}`)}
+      onDeleteClick={() => openDeleteCvDialog(id)}
     />
   );
 }

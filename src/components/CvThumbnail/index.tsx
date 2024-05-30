@@ -9,15 +9,15 @@ import { EditIcon } from "../UI/Icons/EditIcon";
 
 export interface CvThumbnailProps {
   name: string;
+  onPreviewClick: () => void;
   onEditClick: () => void;
-  onEnterClick: () => void;
   onDeleteClick: () => void;
 }
 
 export function CvThumbnail({
   name,
+  onPreviewClick,
   onEditClick,
-  onEnterClick,
   onDeleteClick,
 }: CvThumbnailProps) {
   return (
@@ -28,10 +28,10 @@ export function CvThumbnail({
           <H2 className="min-w-52">{getTruncatedString(name, 18)}</H2>
         </div>
         <div className="flex flex-row gap-3 justify-end">
-          <ButtonLight onClick={onEditClick}>
+          <ButtonLight onClick={onPreviewClick}>
             <DocumentMagnifyingGlassIcon />
           </ButtonLight>
-          <ButtonLight onClick={onEnterClick}>
+          <ButtonLight onClick={onEditClick}>
             <EditIcon />
           </ButtonLight>
           <ButtonLight onClick={onDeleteClick}>
