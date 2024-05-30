@@ -1,5 +1,6 @@
 "use client";
 import { CvThumbnailContainer } from "@/containers/CvThumbnailContrainer";
+import { AddCvButtonContainer } from "@/containers/Edit/AddCvButtonContainer";
 import { DeleteCvDialogContainer } from "@/containers/Edit/DeleteCvDialogContainer";
 import { useCvMetaDataStore } from "@/state/CvMetaDataStore";
 import { CvMetaDataDocument } from "@/types/CvMetaDataDocument";
@@ -16,26 +17,28 @@ export default function Home() {
 
   const { cvMetaDatas, loadCvMetaDatas } = useCvMetaDataStore();
 
-  const [didLoadCvMetaDatas, setDidLoadCvMetaDatas] = useState<boolean>(false);
-
   useEffect(() => {
-    if (didLoadCvMetaDatas) return;
+    if (isLoading) return;
+    if (error) return;
     if (!fetchedCvMetaDatas) return;
-    setDidLoadCvMetaDatas(true);
     loadCvMetaDatas(fetchedCvMetaDatas);
-  }, [didLoadCvMetaDatas, fetchedCvMetaDatas, loadCvMetaDatas]);
+  }, [error, fetchedCvMetaDatas, isLoading, loadCvMetaDatas]);
 
   return (
     <>
-      <main className="flex min-h-screen flex-col gap-2 items-center justify-start p-24 divide-y divide-solid max-w-5xl ml-auto mr-auto">
+      <main className="flex min-h-screen flex-col gap-2 items-center justify-start p-24  max-w-5xl ml-auto mr-auto">
         {cvMetaDatas.map((cvMetaData) => (
           <CvThumbnailContainer key={cvMetaData.id} id={cvMetaData.id} />
         ))}
+        <AddCvButtonContainer
+          onAddCv={() => {
+            mutate();
+          }}
+        />
       </main>
       <DeleteCvDialogContainer
-        onConfirm={() => {
+        onDeleteCv={() => {
           mutate();
-          setDidLoadCvMetaDatas(false);
         }}
       />
     </>

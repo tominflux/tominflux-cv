@@ -2,11 +2,11 @@ import ConfirmationDialog from "@/components/UI/ConfirmationDialog";
 import { useUiStore } from "@/state/UiStore";
 
 export interface DeleteCvDialogContainerProps {
-  onConfirm: () => void;
+  onDeleteCv: () => void;
 }
 
 export function DeleteCvDialogContainer({
-  onConfirm: onAfterConfirm,
+  onDeleteCv: onDeleteCv,
 }: DeleteCvDialogContainerProps) {
   const { deleteCvDialog, closeDeleteCvDialog } = useUiStore();
 
@@ -14,11 +14,15 @@ export function DeleteCvDialogContainer({
     closeDeleteCvDialog();
   };
 
-  const onConfirm = () => {
-    fetch(`/api/cv/${deleteCvDialog}`, {
+  const deleteCv = async () => {
+    await fetch(`/api/cv/${deleteCvDialog}`, {
       method: "DELETE",
     });
-    onAfterConfirm();
+    onDeleteCv();
+  };
+
+  const onConfirm = () => {
+    deleteCv().catch((e) => console.error(e));
     closeDeleteCvDialog();
   };
 
