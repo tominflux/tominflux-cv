@@ -41,16 +41,16 @@ export function CvSectionHeader({
       className={`grid grid-cols-3 gap-4 w-full py-3 `}
       onEditButtonClick={onEditButtonClick}
     >
-      <div className="mt-1 mb-2">
+      <div className="mt-2 mb-2">
         <ul className="list-none">
           {link1 ? <li>{link1}</li> : undefined}
           {link2 ? <li>{link2}</li> : undefined}
         </ul>
       </div>
       <div>
-        <h1 className="text-3xl">{name}</h1>
+        <h1 className="text-4xl">{name}</h1>
       </div>
-      <div className="mt-1 mb-2 text-right">
+      <div className="mt-2 mb-2 text-right">
         <ul className="list-none">
           {email ? <li>{email}</li> : undefined}
           {phone ? <li>{phone}</li> : undefined}

@@ -5,6 +5,8 @@ export const cvDocumentContentListSchema = z.object({
   id: z.string(),
   type: z.literal("list"),
   heading: z.string(),
+  subheading1: z.string().optional(),
+  subheading2: z.string().optional(),
   items: z.array(
     z.object({
       id: z.string(),

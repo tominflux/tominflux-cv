@@ -35,6 +35,12 @@ export function EditContentListDialogContainer() {
   const [editHeadingValue, setEditHeadingValue] = useState<string>(
     content?.heading ?? ""
   );
+  const [editSubheading1Value, setEditSubheading1Value] = useState<string>(
+    content?.subheading1 ?? ""
+  );
+  const [editSubheading2Value, setEditSubheading2Value] = useState<string>(
+    content?.subheading2 ?? ""
+  );
   const [editingItem, setEditingItem] = useState<string | undefined>(undefined);
   const [deletingItem, setDeletingItem] = useState<string | undefined>(
     undefined
@@ -58,6 +64,30 @@ export function EditContentListDialogContainer() {
       updateContent(section.id, {
         ...content,
         heading: newValue,
+      });
+    },
+    [content, section, updateContent]
+  );
+
+  const onSubheading1InputApply = useCallback(
+    (newValue: string) => {
+      if (!section) return;
+      if (!content) return;
+      updateContent(section.id, {
+        ...content,
+        subheading1: newValue,
+      });
+    },
+    [content, section, updateContent]
+  );
+
+  const onSubheading2InputApply = useCallback(
+    (newValue: string) => {
+      if (!section) return;
+      if (!content) return;
+      updateContent(section.id, {
+        ...content,
+        subheading2: newValue,
       });
     },
     [content, section, updateContent]
@@ -148,6 +178,12 @@ export function EditContentListDialogContainer() {
       headingInputValue={editHeadingValue}
       onHeadingInputChange={(value) => setEditHeadingValue(value)}
       onHeadingInputApply={onHeadingInputApply}
+      subheading1InputValue={editSubheading1Value}
+      onSubheading1InputChange={(value) => setEditSubheading1Value(value)}
+      onSubheading1InputApply={onSubheading1InputApply}
+      subheading2InputValue={editSubheading2Value}
+      onSubheading2InputChange={(value) => setEditSubheading2Value(value)}
+      onSubheading2InputApply={onSubheading2InputApply}
       items={arrangeableListItems}
       itemOrder={content ? content.items.map((item) => item.id) : []}
       onItemOrderChange={onItemOrderChange}

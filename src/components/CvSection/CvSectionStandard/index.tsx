@@ -20,7 +20,9 @@ export function CvSectionStandard({
       className={`w-full py-3`}
       onEditButtonClick={onEditButtonClick}
     >
-      {heading ? <h3 className="text-2xl mb-2">{heading}</h3> : undefined}
+      {heading ? (
+        <h3 className="text-2xl underline mb-5">{heading}</h3>
+      ) : undefined}
       <div className={`px-3`}>{children}</div>
     </EditOverlay>
   );

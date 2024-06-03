@@ -20,6 +20,12 @@ export interface EditContentListDialogProps {
   headingInputValue: string;
   onHeadingInputChange?: (value: string) => void;
   onHeadingInputApply?: (value: string) => void;
+  subheading1InputValue: string;
+  onSubheading1InputChange?: (value: string) => void;
+  onSubheading1InputApply?: (value: string) => void;
+  subheading2InputValue: string;
+  onSubheading2InputChange?: (value: string) => void;
+  onSubheading2InputApply?: (value: string) => void;
   items: ({
     id: string;
     className?: string;
@@ -37,6 +43,12 @@ export function EditContentListDialog({
   headingInputValue,
   onHeadingInputChange,
   onHeadingInputApply,
+  subheading1InputValue,
+  onSubheading1InputChange,
+  onSubheading1InputApply,
+  subheading2InputValue,
+  onSubheading2InputChange,
+  onSubheading2InputApply,
   items,
   itemOrder,
   onItemOrderChange,
@@ -59,6 +71,18 @@ export function EditContentListDialog({
             value={headingInputValue}
             onValueChange={onHeadingInputChange}
             onValueApply={onHeadingInputApply}
+          />
+          <TextInput
+            label="Sub-heading 1"
+            value={subheading1InputValue}
+            onValueChange={onSubheading1InputChange}
+            onValueApply={onSubheading1InputApply}
+          />
+          <TextInput
+            label="Sub-heading 2"
+            value={subheading2InputValue}
+            onValueChange={onSubheading2InputChange}
+            onValueApply={onSubheading2InputApply}
           />
         </div>
         <div className="flex flex-col gap-2 py-2 text-left">
