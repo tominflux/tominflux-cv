@@ -7,7 +7,7 @@ export interface CvSectionStandardEditData {
 export interface CvSectionStandardProps {
   heading: string;
   children: ReactNode;
-  onEditButtonClick: () => void;
+  onEditButtonClick?: () => void;
 }
 
 export function CvSectionStandard({
@@ -15,15 +15,24 @@ export function CvSectionStandard({
   children,
   onEditButtonClick,
 }: CvSectionStandardProps) {
-  return (
-    <EditOverlay
-      className={`w-full py-3`}
-      onEditButtonClick={onEditButtonClick}
-    >
+  const containerClassName = "w-full py-3";
+  const contents = (
+    <>
       {heading ? (
         <h3 className="text-2xl underline mb-5">{heading}</h3>
       ) : undefined}
       <div className={`px-3`}>{children}</div>
+    </>
+  );
+  if (!onEditButtonClick) {
+    return <div className={containerClassName}>{contents}</div>;
+  }
+  return (
+    <EditOverlay
+      className={containerClassName}
+      onEditButtonClick={onEditButtonClick}
+    >
+      {contents}
     </EditOverlay>
   );
 }

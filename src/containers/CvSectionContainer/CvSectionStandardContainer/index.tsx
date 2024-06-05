@@ -10,7 +10,9 @@ export interface CapsuleRef {
   element: HTMLDivElement | null;
 }
 
-export type CvSectionStandardContainerProps = CvDocumentSectionStandard;
+export type CvSectionStandardContainerProps = CvDocumentSectionStandard & {
+  isEditable?: boolean;
+};
 
 export type CvSectionStandardEditData = Omit<
   CvDocumentSectionStandard,
@@ -21,13 +23,14 @@ export function CvSectionStandardContainer({
   id,
   heading,
   content,
+  isEditable = true,
 }: CvSectionStandardContainerProps) {
   const { openSectionDialog } = useUiStore();
 
   return (
     <CvSectionStandard
       heading={heading}
-      onEditButtonClick={() => openSectionDialog(id)}
+      onEditButtonClick={isEditable ? () => openSectionDialog(id) : undefined}
     >
       {content.map((contentProps) => (
         <CvContentContainer key={contentProps.id} {...contentProps} />

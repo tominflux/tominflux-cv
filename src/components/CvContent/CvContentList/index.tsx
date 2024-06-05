@@ -23,20 +23,20 @@ export function CvContentList({
   return (
     <div className={`mb-5`}>
       {heading ? (
-        <div className="grid grid-cols-4">
-          <div>
-            <h3 className="text-xl font-medium text-left">{heading}</h3>
+        <div className="grid grid-cols-4 items-center">
+          <div className={subheading1 ? undefined : "col-span-2"}>
+            <h3 className="text-xl text-left">{heading}</h3>
           </div>
-          <div className="col-span-2">
-            {subheading1 ? (
+          {subheading1 ? (
+            <div className="col-span-2">
               <h4 className="text-xl font-medium text-center">{subheading1}</h4>
-            ) : undefined}
-          </div>
-          <div>
-            {subheading2 ? (
-              <h4 className="text-xl font-medium text-right">{subheading2}</h4>
-            ) : undefined}
-          </div>
+            </div>
+          ) : undefined}
+          {subheading2 ? (
+            <div className={subheading1 ? undefined : "col-span-2"}>
+              <h4 className="text-md text-right">{subheading2}</h4>
+            </div>
+          ) : undefined}
         </div>
       ) : undefined}
       <ul className={`${listType} pl-6`}>

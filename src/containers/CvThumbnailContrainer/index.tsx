@@ -18,7 +18,7 @@ export function CvThumbnailContainer({ id }: CvThumbnailContainerProps) {
   return (
     <CvThumbnail
       name={cvMetaData.metadata.name}
-      onPreviewClick={() => {}}
+      onPreviewClick={() => window.open(`/cv/${id}/preview`, "_blank")}
       onEditClick={() => router.push(`/cv/${id}`)}
       onDeleteClick={() => openDeleteCvDialog(id)}
     />

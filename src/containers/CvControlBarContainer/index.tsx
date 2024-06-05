@@ -9,16 +9,18 @@ export function CvControlBarContainer() {
   const router = useRouter();
 
   const documentName = cv?.metadata?.name ?? "n/a";
+  const previewUrl = cv ? `/cv/${cv.id}/preview` : undefined;
 
   return (
     <CvControlBar
       documentName={documentName}
       onBackClick={() => router.push(`/`)}
       onEditMetaDataClick={() => {
-        console.log("OPEN");
         openEditMetaDataDialog();
       }}
-      onViewPreviewClick={() => {}}
+      onViewPreviewClick={
+        previewUrl ? () => window.open(previewUrl, "_blank") : () => {}
+      }
     />
   );
 }

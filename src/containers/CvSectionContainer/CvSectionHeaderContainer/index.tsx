@@ -8,7 +8,9 @@ import { useCvStore } from "@/state/CvStore";
 import { useUiStore } from "@/state/UiStore";
 import { CvDocumentSectionHeader } from "@/types/CvDocument/CvDocumentSection";
 
-export type CvSectionHeaderContainerProps = CvDocumentSectionHeader;
+export type CvSectionHeaderContainerProps = CvDocumentSectionHeader & {
+  isEditable?: boolean;
+};
 
 export function CvSectionHeaderContainer({
   id,
@@ -18,6 +20,7 @@ export function CvSectionHeaderContainer({
   address,
   link1,
   link2,
+  isEditable = true,
 }: CvSectionHeaderContainerProps) {
   const { openSectionDialog } = useUiStore();
 
@@ -30,7 +33,7 @@ export function CvSectionHeaderContainer({
       address={address}
       link1={link1}
       link2={link2}
-      onEditButtonClick={() => openSectionDialog(id)}
+      onEditButtonClick={isEditable ? () => openSectionDialog(id) : undefined}
     />
   );
 }

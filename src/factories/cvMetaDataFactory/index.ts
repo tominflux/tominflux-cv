@@ -1,4 +1,3 @@
-import { metadata } from "@/app/layout";
 import { getMongoCollection } from "@/lib/mongodb";
 import { CvDocument } from "@/types/CvDocument";
 import { CvMetaDataDocument } from "@/types/CvMetaDataDocument";

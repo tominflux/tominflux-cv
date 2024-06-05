@@ -23,7 +23,7 @@ export interface CvSectionHeaderProps {
   address: string;
   link1?: string;
   link2?: string;
-  onEditButtonClick: () => void;
+  onEditButtonClick?: () => void;
 }
 
 export function CvSectionHeader({
@@ -36,19 +36,17 @@ export function CvSectionHeader({
   link2,
   onEditButtonClick,
 }: CvSectionHeaderProps) {
-  return (
-    <EditOverlay
-      className={`grid grid-cols-3 gap-4 w-full py-3 `}
-      onEditButtonClick={onEditButtonClick}
-    >
+  const containerClassName = "grid grid-cols-4 gap-4 w-full py-3";
+  const contents = (
+    <>
       <div className="mt-2 mb-2">
         <ul className="list-none">
           {link1 ? <li>{link1}</li> : undefined}
           {link2 ? <li>{link2}</li> : undefined}
         </ul>
       </div>
-      <div>
-        <h1 className="text-4xl">{name}</h1>
+      <div className="col-span-2 text-center">
+        <h1 className="text-3xl">{name}</h1>
       </div>
       <div className="mt-2 mb-2 text-right">
         <ul className="list-none">
@@ -57,6 +55,17 @@ export function CvSectionHeader({
           {address ? <li>{address}</li> : undefined}
         </ul>
       </div>
+    </>
+  );
+  if (!onEditButtonClick) {
+    return <div className={containerClassName}>{contents}</div>;
+  }
+  return (
+    <EditOverlay
+      className={containerClassName}
+      onEditButtonClick={onEditButtonClick}
+    >
+      {contents}
     </EditOverlay>
   );
 }
